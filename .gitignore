@@ -1,6 +1,7 @@
 *.pdf
 *.dat
 *.hdf5
+*.pyc
 output/*
 plots/*
 input/*

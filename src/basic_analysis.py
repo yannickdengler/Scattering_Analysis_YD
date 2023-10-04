@@ -103,21 +103,19 @@ def basic_analysis(Correlators, args):                                          
     if len(names) != len(Correlators)//3:
         print("Len of Correlators in basic_analysis is not len of names*3. ")
         return 2
-    for i, name in zip(range(len(Correlators)//3), names):
-        i = i*3
-        Op_names = [str(name)+"_pi", str(name)+"_rho", str(name)+"_pipi"]
-        for key, value in calc_corr(Correlators[i:i+3], [Op_names,]).items():
-            result[key]=value
-        for key, value in calc_corr_tilde(Correlators[i:i+3], [Op_names,]).items():
-            result[key]=value
-        for key, value in calc_eff_mass_log(Correlators[i:i+3], [Op_names,]).items():
-            result[key]=value
-        for key, value in calc_eff_mass_impl_deri(Correlators[i:i+3], [Op_names,]).items():
-            result[key]=value
-        for key, value in calc_convexity(Correlators[i:i+3], [Op_names,]).items():
-            result[key]=value
-        # for key, value in calc_eff_mass_impl(Correlators, [Op_names,]).items():
-        #     result[key]=value
+    Op_names = ["pi", "rho", "pipi"]
+    for key, value in calc_corr(Correlators, [Op_names,]).items():
+        result[key]=value
+    for key, value in calc_corr_tilde(Correlators, [Op_names,]).items():
+        result[key]=value
+    for key, value in calc_eff_mass_log(Correlators, [Op_names,]).items():
+        result[key]=value
+    for key, value in calc_eff_mass_impl_deri(Correlators, [Op_names,]).items():
+        result[key]=value
+    for key, value in calc_convexity(Correlators, [Op_names,]).items():
+        result[key]=value
+    # for key, value in calc_eff_mass_impl(Correlators, [Op_names,]).items():
+    #     result[key]=value
     for key in result:
         print(key, result[key])
     return result
