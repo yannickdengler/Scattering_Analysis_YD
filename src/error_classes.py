@@ -11,7 +11,7 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 import math
-import src.resampling as rs
+import resampling as rs
 
 def mean_orig_sample(orig_sample):
     """
@@ -80,12 +80,12 @@ class measurement:
                 f.create_dataset(str(result.name)+"_sample", data = result.sample)
                 f.create_dataset(str(result.name)+"_result", data = result.result)
             f.visit(print)
-    def read_from_HDF(self, hdfpath = "../output/HDF5_resultfiles/"):
+    def read_from_HDF(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
         """
         Reads a result from an HDF file
         """
         with h5py.File(hdfpath+self.name+".hdf5","r") as f:
-            f.visit(print)
+            # f.visit(print)
             self.result_names = []
             for name in f["result_names"]:
                 self.result_names.append(name.decode())

@@ -2,6 +2,7 @@
 *.dat
 *.hdf5
 *.pyc
+*.ipynb
 !output/result_files/.gitkeep
 !output/HDF5_logfiles/.gitkeep
 !output/.gitkeep
