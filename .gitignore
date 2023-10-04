@@ -2,9 +2,11 @@
 *.dat
 *.hdf5
 *.pyc
-output/*
-# plots/*
-input/*
+!output/result_files/.gitkeep
+!output/HDF5_logfiles/.gitkeep
 !output/.gitkeep
 !plots/.gitkeep
 !input/.gitkeep
+# output/*
+# plots/*
+# input/*
