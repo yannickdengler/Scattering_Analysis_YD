@@ -1,0 +1,9 @@
+*.pdf
+*.dat
+*.hdf5
+output/*
+plots/*
+input/*
+!output/.gitkeep
+!plots/.gitkeep
+!input/.gitkeep
