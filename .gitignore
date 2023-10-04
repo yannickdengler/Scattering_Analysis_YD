@@ -3,7 +3,7 @@
 *.hdf5
 *.pyc
 output/*
-plots/*
+# plots/*
 input/*
 !output/.gitkeep
 !plots/.gitkeep

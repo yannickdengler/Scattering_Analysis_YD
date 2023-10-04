@@ -21,7 +21,8 @@ def get_ops_from_HDF5_logfile(filename):
 
 def get_info_from_HDF5_logfile(filename):
     with h5py.File(filename,"r") as file:
-        return file["N_L"][()], file["N_T"][()], file["gauge_group"][()].decode(), file["beta"][()], file["m_1"][()], file["m_2"][()]
+        info_string = "Scattering_%s_%s_beta%1.3f_m1%1.3f_m2%1.3f_T%i_L%i"%(file["isospin_channel"][()],file["gauge_group"][()].decode(), file["beta"][()], file["m_1"][()], file["m_2"][()], file["N_L"][()], file["N_T"][()])
+        return file["N_L"][()], file["N_T"][()], file["gauge_group"][()].decode(), file["beta"][()], file["m_1"][()], file["m_2"][()], file["isospin_channel"][()], info_string
 
 def get_corr_ops_info_from_HDF5_logfile(filename):
     return (get_corr_from_HDF5_logfile(filename),get_ops_from_HDF5_logfile(filename),get_info_from_HDF5_logfile(filename))

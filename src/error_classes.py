@@ -66,7 +66,7 @@ class measurement:
     def visit_print(self):
         with h5py.File("../output/HDF5_logfiles"+self.name+".hdf5","r") as f:
             f.visit(print)
-    def print_to_HDF(self, hdfpath = "../output/HDF5_resultfiles/"):
+    def print_to_HDF(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
         """
         Prints a result to an HDF file
         """
