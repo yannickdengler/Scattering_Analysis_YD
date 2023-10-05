@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.optimize import bisect
 import error_classes as errcl
-# import basic_analysis as ba
+import basic_analysis as ba
 import read_HDF5_logfile as HDF_log 
 import matplotlib.pyplot as plt
 
@@ -58,9 +58,6 @@ def calc_eff_mass_impl_deri(Correlators, args):                               # 
                 result["m_eff_impl_deri"].append(0)
             else:
                 result["m_eff_impl_deri"].append(bisect(f=zero_eff_mass, a=1e-30, b=1000, args = (ratio,i)))
-    print(len(Correlators))
-    print(Correlators)
-    print(result["m_eff_impl_deri"])
     return result
     
 def calc_convexity(Correlators, args):                          # Correlators [Ops][N_T] 
@@ -93,44 +90,64 @@ def basic_analysis(Correlators, args):                                          
 
 filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/HDF5_filelist", "str")
 
-for filename in filelist:
-    print(filename)
-    info = HDF_log.get_info_from_HDF5_logfile(filename)
-    corrs = HDF_log.get_pi_rho_pipi_corr_from_HDF5_logfile(filename)
-    for op, corr in zip(("pi", "rho", "pipi"), corrs):
-        basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = basic_analysis, sampling_args = ("JK_SAMEDIM",0,0))
-        basic.measure(orig_sample=np.swapaxes(corr,0,1), args=[None,])
-        basic.print_to_HDF()
+def calc():
+    for filename in filelist:
+        print(filename)
+        info = HDF_log.get_info_from_HDF5_logfile(filename)
+        corrs = HDF_log.get_pi_rho_pipi_corr_from_HDF5_logfile(filename)
+        for op, corr in zip(("pi", "rho", "pipi"), corrs):
+            basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = ba.basic_analysis, sampling_args = ("JK_SAMEDIM",0,0))
+            basic.measure(orig_sample=np.swapaxes(corr,0,1), args=[filename+"_"+op, filename+"_"+op, filename+"_"+op, ])
+            basic.print_to_HDF()
+            
+def plot_corr(show = False):
+    for filename in filelist:
+        C_plot = {}
+        for op in ("pi", "rho", "pipi"):
+            basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = ba.basic_analysis, sampling_args = ("JK_SAMEDIM",0,0))
+            basic.read_from_HDF()
+            C_plot[op+"_m"] = basic.results["C"].median
+            C_plot[op+"_ep"] = basic.results["C"].ep
+            C_plot[op+"_em"] = basic.results["C"].em
+            plt.errorbar(x=np.arange(len(C_plot[op+"_m"])), y=C_plot[op+"_m"], yerr=(C_plot[op+"_ep"],C_plot[op+"_em"]), label = op)
+        plt.yscale("log")
+        plt.ylabel("C")
+        plt.xlabel("$n_t$")
+        plt.legend()
+        plt.grid()
+        # plt.title("")
+        if show:
+            plt.show()
+        plt.savefig("plots/Corr_"+info[7]+".pdf")
+        plt.clf()
 
-    C_plot = {}
-    for op in ("pi", "rho", "pipi"):
-        basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = basic_analysis, sampling_args = ("JK_SAMEDIM",0,0))
-        basic.read_from_HDF()
-        C_plot[op+"_m"] = basic.results["C"].median
-        C_plot[op+"_ep"] = basic.results["C"].ep
-        C_plot[op+"_em"] = basic.results["C"].em
-        plt.errorbar(x=np.arange(len(C_plot[op+"_m"])), y=C_plot[op+"_m"], yerr=(C_plot[op+"_ep"],C_plot[op+"_em"]), label = op)
-    plt.yscale("log")
-    plt.ylabel("C")
-    plt.xlabel("$n_t$")
-    plt.legend()
-    plt.grid()
-    plt.title(info[7])
-    plt.savefig("plots/Corr_"+info[7]+".pdf")
-    plt.clf()
+def plot_m_eff(show = False):
+    for filename in filelist:
+        m_eff_plot = {}
 
-    m_eff_plot = {}
-    for op in ("pi", "rho", "pipi"):
-        basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = basic_analysis, sampling_args = ("JK_SAMEDIM",0,0))
-        basic.read_from_HDF()
-        m_eff_plot[op+"_m"] = basic.results["m_eff_impl_deri"].median
-        m_eff_plot[op+"_ep"] = basic.results["m_eff_impl_deri"].ep
-        m_eff_plot[op+"_em"] = basic.results["m_eff_impl_deri"].em
-        plt.errorbar(x=np.arange(len(m_eff_plot[op+"_m"])), y=m_eff_plot[op+"_m"], yerr=(m_eff_plot[op+"_ep"],m_eff_plot[op+"_em"]), label = op)
-    plt.ylabel("C")
-    plt.xlabel("$n_t$")
-    plt.legend()
-    plt.grid()
-    plt.title(info[7])
-    plt.savefig("plots/m_eff_"+info[7]+".pdf")
-    plt.clf()
+        for op in ("pi", "rho", "pipi"):
+            basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = ba.basic_analysis, sampling_args = ("JK_SAMEDIM",0,0))
+            basic.read_from_HDF()
+            m_eff_plot[op+"_m"] = basic.results["m_eff_impl_deri"].median
+            m_eff_plot[op+"_ep"] = basic.results["m_eff_impl_deri"].ep
+            m_eff_plot[op+"_em"] = basic.results["m_eff_impl_deri"].em
+            plt.errorbar(x=np.arange(len(m_eff_plot[op+"_m"])), y=m_eff_plot[op+"_m"], yerr=(m_eff_plot[op+"_ep"],m_eff_plot[op+"_em"]), label = op)
+        plt.ylabel("C")
+        plt.xlabel("$n_t$")
+        plt.legend()
+        plt.grid()
+        # plt.title("")
+        if show:
+            plt.show()
+        plt.savefig("plots/m_eff_"+info[7]+".pdf")
+        plt.clf()
+
+def main(calc = True, plot=True, show = False):
+    if calc:
+        calc()
+    if plot:
+        plot_corr(show)
+        plot_m_eff()
+
+if __name__ == "__main__":
+    main()
