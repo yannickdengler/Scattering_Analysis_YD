@@ -6,6 +6,7 @@
     Functions that help with reading the HDF5_logfile
  """
 
+import numpy as np
 import h5py
 
 def get_corr_from_HDF5_logfile(filename):
@@ -33,3 +34,7 @@ def get_pi_rho_pipi_corr_from_HDF5_logfile(filename):
     for op in ("pi","rho","pipi"):
         corrs.append(get_corr_from_HDF5_logfile(filename)[get_ops_from_HDF5_logfile(filename).index(op)])
     return corrs
+
+def get_fit_limits(filename):
+    info = get_info_from_HDF5_logfile(filename)
+    return np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/fit_limits/fit_limits_%s"%info[7], int)

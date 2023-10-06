@@ -148,9 +148,9 @@ class result:
                 self.ep.append(ep_tmp)
                 self.em.append(em_tmp)
                 self.e.append(max(ep_tmp,em_tmp))
-            # if sampling_args[0] == "JK" or sampling_args[0] == "JK_SAMEDIM":
-            #     self.e_JK = JK_err(res_sample, result)
-            # elif sampling_args[0] == "BS" or sampling_args[0] == "BS_SAMEDIM" or sampling_args[0] == "BS_FIX":
+            if sampling_args[0] == "JK" or sampling_args[0] == "JK_SAMEDIM":
+                self.e_JK = JK_err(res_sample, result)
+            # elif sampling_args[0] == "BS_DIFFDIM" or sampling_args[0] == "BS_SAMEDIM":
             #     self.e_BS = BS_err(res_sample)
 
     def draw_histogram(self, ind=0, num_bins = 20):  

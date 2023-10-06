@@ -47,7 +47,7 @@ class measurement:
         Resamples = rs.resampling(orig_sample, self.sampling_args)
         tot = len(Resamples)                            
         for i, Resample in zip(range(len(Resamples)), Resamples):
-            print(i*100./tot, "%")
+            # print(i*100./tot, "%")
             if check_for_bad_results:
                 bad_res = True
                 while bad_res:
@@ -62,7 +62,9 @@ class measurement:
         self.result_names = []
         for key in result_samples:
             self.result_names.append(key)
+            print(key)
             self.results[key] = result(key, mean_res[key], result_samples[key], self.sampling_args)
+            print(self.results[key].name)
     def visit_print(self):
         with h5py.File("../output/HDF5_logfiles"+self.name+".hdf5","r") as f:
             f.visit(print)
@@ -128,12 +130,12 @@ class result:
     Class that stores a single result and calculates the error. Is contained in "measurement"
     """          
     def __init__(self, name, result, res_sample, sampling_args = ("JK", 0, 0)):
-        if not sampling_args[0] == "None":
-            self.name = name                                          
-            self.sampling_args = sampling_args
-            self.result = result
-            self.sample = res_sample                                            # [num_results]
-            self.mean = np.mean(res_sample, axis=1)
+        self.name = name                                          
+        self.sampling_args = sampling_args
+        self.result = result
+        self.sample = res_sample      
+        self.mean = np.mean(res_sample, axis=1)      
+        if not sampling_args[0] == "None":                                # [num_results]
             self.median = []
             self.e = []
             self.ep = []
@@ -148,8 +150,8 @@ class result:
                 self.ep.append(ep_tmp)
                 self.em.append(em_tmp)
                 self.e.append(max(ep_tmp,em_tmp))
-            # if sampling_args[0] == "JK" or sampling_args[0] == "JK_SAMEDIM":
-            #     self.e_JK = JK_err(res_sample, result)
+            if sampling_args[0] == "JK" or sampling_args[0] == "JK_SAMEDIM":
+                self.e_JK = JK_err(res_sample, result)
             # elif sampling_args[0] == "BS" or sampling_args[0] == "BS_SAMEDIM" or sampling_args[0] == "BS_FIX":
             #     self.e_BS = BS_err(res_sample)
 
