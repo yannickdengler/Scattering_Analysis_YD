@@ -1,0 +1,16 @@
+Terminated
+HDF5 done!
+/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/basic_analysis.py:46: RuntimeWarning: overflow encountered in sinh
+  return np.sinh(eff_mass*(T_2-index))/np.sinh(eff_mass*(T_2-(index+1))) - ratio                                               # {results}[result_array]
+/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/basic_analysis.py:46: RuntimeWarning: invalid value encountered in double_scalars
+  return np.sinh(eff_mass*(T_2-index))/np.sinh(eff_mass*(T_2-(index+1))) - ratio                                               # {results}[result_array]
+Terminated
+basic_analysis done!
+Terminated
+energy_levels done!
+/home/dengler_yannick/.local/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:833: OptimizeWarning: Covariance of the parameters could not be estimated
+  warnings.warn('Covariance of the parameters could not be estimated',
+Terminated
+infinite_volume done!
+Terminated
+phase_shift done!

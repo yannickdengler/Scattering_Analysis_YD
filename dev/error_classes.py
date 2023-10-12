@@ -5,6 +5,9 @@
     
     Takes data and parses it to the resampler and the functions to get an estimation of the error
 """
+"""
+    Note: Unclear on which error to use. Will continue with BS error (It agrees with std_err like in Gattringer). But they do not agree. Check in with Fabian.
+"""
 import sys
 import os
 import h5py
@@ -20,7 +23,7 @@ def mean_orig_sample(orig_sample):
     mean = []
     for Corr_mont in orig_sample:
         mean.append(np.mean(Corr_mont, axis=0))
-    return mean
+    return np.asarray(mean)
 
 class measurement:
     """
@@ -62,9 +65,7 @@ class measurement:
         self.result_names = []
         for key in result_samples:
             self.result_names.append(key)
-            print(key)
             self.results[key] = result(key, mean_res[key], result_samples[key], self.sampling_args)
-            print(self.results[key].name)
     def visit_print(self):
         with h5py.File("../output/HDF5_logfiles"+self.name+".hdf5","r") as f:
             f.visit(print)
@@ -77,18 +78,29 @@ class measurement:
             f.create_dataset(str(self.name), data = self.name)
             f.create_dataset("result_names", data = self.result_names)
             for i in range(len(self.sampling_args)):
-                f.create_dataset("sampling_args"+str(i), data = self.sampling_args[i])
+                f.create_dataset("sampling_args%i"%i, data = self.sampling_args[i])
             for result in self.results.values():
                 f.create_dataset(str(result.name)+"_sample", data = result.sample)
                 f.create_dataset(str(result.name)+"_result", data = result.result)
-            f.visit(print)
+            # f.visit(print)
     def read_from_HDF(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
         """
         Reads a result from an HDF file
         """
         with h5py.File(hdfpath+self.name+".hdf5","r") as f:
             # f.visit(print)
+            # print(f.keys())
+            sampling_args_in = []
             self.result_names = []
+            for i in range(10):
+                tmp = "sampling_args%i"%i
+                if tmp in f.keys():
+                    tmp2 = f[tmp][()]
+                    if isinstance(tmp2, bytes):
+                        tmp2 = tmp2.decode()
+                    sampling_args_in.append(tmp2)
+            self.sampling_args = sampling_args_in
+            # print("HEY SMAPLING RGS: ", self.sampling_args)
             for name in f["result_names"]:
                 self.result_names.append(name.decode())
             for result_name in self.result_names:
@@ -102,27 +114,36 @@ def JK_err(Sample, res):
     """
     Calculates the error for a delete-1 Jackknife Sample (not checked)
     """
-    size = len(Sample)
-    err = np.zeros(len(Sample[0]))             
-    tmp = np.swapaxes(Sample, 0, 1)
-    for i in range(len(tmp)):
+    print(len(Sample), len(Sample[0]), len(res))
+
+    size = len(res)
+    std = np.zeros(size)
+    err = np.zeros(size)
+    tmp = np.swapaxes(Sample,0,1)
+    for i in range(size):
         for val in tmp[i]:
-            err[i] += (res[i]-val)**2
-        err[i] = np.sqrt(err[i]*(size-1)/size)
+            std[i] += (res[i]-val)**2*((size-1)/size)
+            # std[i] += (res[i]-val)**2/size
+    for i in range(size):
+        err = np.sqrt(std)
     return err
 
 def BS_err(Sample):      
     """
     Calculates the error for a Bootstrap Sample (not checked)
-    """                                                                          
-    size = len(Sample)
-    mean = np.mean(Sample, axis = 0)
-    err = np.zeros(len(Sample[0]))                 
+    """               
+    num_BS = len(Sample)
+    num_res = len(Sample[0])
+    var = np.zeros(num_res)    
+    err = np.zeros(num_res)
+    mean = np.mean(Sample, axis = 0)     
+     
     tmp = np.swapaxes(Sample, 0, 1)
-    for i in range(len(tmp)):
+    for i in range(num_res):
         for val in tmp[i]:
-            err[i] += (mean[i]-val)**2
-        err[i] = np.sqrt(err[i]/size)
+            var[i] += (mean[i]-val)**2/num_BS
+    for i in range(num_res):
+        err = np.sqrt(var)
     return err
 
 class result:  
@@ -133,35 +154,43 @@ class result:
         self.name = name                                          
         self.sampling_args = sampling_args
         self.result = result
-        self.sample = res_sample      
-        self.mean = np.mean(res_sample, axis=1)      
+        self.sample = res_sample  
+        self.mean = np.mean(res_sample, axis=0)                                                     # I CHANGED THE 0 TO ONE, THIS WAS IMPORTANT
         if not sampling_args[0] == "None":                                # [num_results]
             self.median = []
             self.e = []
             self.ep = []
             self.em = []
             for tmp in np.swapaxes(res_sample,0,1):
+                percentage_std = 0.682689
                 num = len(tmp)                                                  # num_results
                 tmp_2 = np.sort(tmp, kind="mergesort")
                 median = tmp_2[num//2]
                 self.median.append(median)
-                ep_tmp = abs(tmp_2[math.ceil(num*2/3.)]-median)
-                em_tmp = abs(tmp_2[math.floor(num/3.)]-median)
+                low_ind = math.ceil(num*(1-percentage_std)/2)
+                high_ind = math.floor(num*(1+percentage_std)/2)
+                ep_tmp = abs(tmp_2[low_ind]-median)
+                em_tmp = abs(tmp_2[high_ind]-median)
                 self.ep.append(ep_tmp)
                 self.em.append(em_tmp)
                 self.e.append(max(ep_tmp,em_tmp))
             if sampling_args[0] == "JK" or sampling_args[0] == "JK_SAMEDIM":
                 self.e_JK = JK_err(res_sample, result)
-            # elif sampling_args[0] == "BS" or sampling_args[0] == "BS_SAMEDIM" or sampling_args[0] == "BS_FIX":
-            #     self.e_BS = BS_err(res_sample)
+            elif sampling_args[0] == "BS_DIFFDIM" or sampling_args[0] == "BS_SAMEDIM":
+                self.e_BS = BS_err(res_sample)
 
     def draw_histogram(self, ind=0, num_bins = 20):  
         """
         Function that draws a histogram from a distribution of a result sample
-        """          
-        data = np.swapaxes(self.sample,0,1)[ind]
+        """         
+        data = np.swapaxes(self.sample,0,1)[ind] 
         start = 0
         stop = len(data)
+        counter = 0
+        for x in data:
+            if x < self.median[ind]+self.ep[ind] and x > self.median[ind]-self.em[ind]:
+                counter += 1
+        print(counter, stop, counter/stop)
         fig = plt.figure(figsize=(6, 6))
         gs = fig.add_gridspec(2, 2,  width_ratios=(4, 1), height_ratios=(1, 4),
                             left=0.1, right=0.9, bottom=0.1, top=0.9,
@@ -173,9 +202,12 @@ class result:
         for i in range(len(data)):
             x_axis.append(start + i)
         ax.plot(x_axis, data)
+        ax.fill_between((0,stop), self.median[ind]-self.em[ind], self.median[ind]+self.ep[ind], color = "red", alpha = 0.5)
+        ax.axhline(self.median[ind], color = "red")
         plt.title(self.name)
-        plt.hist(data,bins = bins, orientation="horizontal")
+        plt.hist(data, bins = bins, orientation="horizontal")
         plt.show()
+
     def percent_nan(self):
         """
         Prints the amount of NaNs in your sample

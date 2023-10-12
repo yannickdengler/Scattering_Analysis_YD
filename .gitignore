@@ -3,16 +3,6 @@
 *.hdf5
 *.pyc
 *.ipynb
-
-# fit_limits*
-# !output/result_files/.gitkeep
-# !output/HDF5_logfiles/.gitkeep
-# !output/.gitkeep
-# !plots/.gitkeep
-# !input/.gitkeep
-# !input/fit_limits/.gitkeep
-output
 plots
 input
 !*gitkeep
-# !*/*/.gitkeep

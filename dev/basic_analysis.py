@@ -80,31 +80,32 @@ def basic_analysis(Correlators, args):                                          
         result[key]=value
     return result
 
-def set_errorbar_settings():
-    plt.rcParams["errorbar.capsize"] = 5
-    plt.rcParams["lines.linestyle"] = ""
-    plt.rcParams["lines.markersize"] = 10
+# def set_errorbar_settings():
+#     plt.rcParams["errorbar.capsize"] = 5
+#     plt.rcParams["lines.linestyle"] = ""
+#     plt.rcParams["lines.markersize"] = 10
 
-set_errorbar_settings()
+# set_errorbar_settings()
 
 
 ################################ CALCULATION ####################################
+
 def main():
     filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/HDF5_filelist_full", "str")
 
     for filename in filelist:
-        print(filename)
         info = HDF_log.get_info_from_HDF5_logfile(filename)
         corrs = HDF_log.get_pi_rho_pipi_corr_from_HDF5_logfile(filename)
         for op, corr in zip(("pi", "rho", "pipi"), corrs):
-            basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = basic_analysis, sampling_args = ("JK_SAMEDIM",0,0))
+            basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = basic_analysis, sampling_args = ("BS_SAMEDIM",600,1))
             basic.measure(orig_sample=np.swapaxes(corr,0,1), args=[None,])
             basic.print_to_HDF()
 
         C_plot = {}
-        for op in ("pi", "rho", "pipi"):
-            basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = basic_analysis, sampling_args = ("JK_SAMEDIM",0,0))
+        for i, op in zip(range(3),("pi", "rho", "pipi")):
+            basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = basic_analysis, sampling_args = None)
             basic.read_from_HDF()
+
             C_plot[op+"_m"] = basic.results["C"].median
             C_plot[op+"_ep"] = basic.results["C"].ep
             C_plot[op+"_em"] = basic.results["C"].em
@@ -120,7 +121,7 @@ def main():
 
         m_eff_plot = {}
         for op in ("pi", "rho", "pipi"):
-            basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = basic_analysis, sampling_args = ("JK_SAMEDIM",0,0))
+            basic = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = None, sampling_args = None)
             basic.read_from_HDF()
             m_eff_plot[op+"_m"] = basic.results["m_eff_impl_deri"].median
             m_eff_plot[op+"_ep"] = basic.results["m_eff_impl_deri"].ep
@@ -135,3 +136,53 @@ def main():
         plt.clf()
 
 main()
+
+
+
+
+
+        # print(len(corrs),len(corrs[0]),len(corrs[0][0]))
+        # corr_pi = corrs[0]
+        # corr_5 = np.swapaxes(corr_pi,0,1)[5]
+        # print(len(corr_5))
+        # num = len(corr_5)
+        # mean_np = np.mean(corr_5)
+        # mean_std = np.std(corr_5)
+        # var = 0
+        # for x in corr_5:
+        #     var += (x-mean_np)**2/(num-1)
+        # std = np.sqrt(var)
+        # std_err = std/np.sqrt(num)
+
+        # # print(mean_std)
+        # # print(std)
+
+        # # print(mean_std/np.sqrt(num-1))
+        # # print(std_err)
+
+
+        # # exit()
+
+        # counter = 0
+        # for x in corr_5:
+        #     if x < mean_np+std_err and x > mean_np-std_err:
+        #         counter += 1
+        # print(counter, num, counter/num)
+
+        # print(num)
+        # print("std:", mean_np, std, std/mean_np)
+        # print("std_err:", mean_np, std_err, std_err/mean_np)
+        # basic = errcl.measurement("basic_%s_%s_2000BS"%(info[7], op), measure_func = basic_analysis, sampling_args = None)
+        # basic.read_from_HDF()
+        # print("68%:", basic.results["C"].median[5], basic.results["C"].e[5], basic.results["C"].e[5]/basic.results["C"].median[5])
+        # print("BS:", basic.results["C"].median[5], basic.results["C"].e_BS[5], basic.results["C"].e_BS[5]/basic.results["C"].median[5])
+        # basic = errcl.measurement("basic_%s_%s_500BS"%(info[7], op), measure_func = basic_analysis, sampling_args = None)
+        # basic.read_from_HDF()
+        # print("68%:", basic.results["C"].median[5], basic.results["C"].e[5], basic.results["C"].e[5]/basic.results["C"].median[5])
+        # print("BS:", basic.results["C"].median[5], basic.results["C"].e_BS[5], basic.results["C"].e_BS[5]/basic.results["C"].median[5])
+
+
+        # basic_JK = errcl.measurement("basic_%s_%s"%(info[7], op), measure_func = basic_analysis, sampling_args = None)
+        # basic_JK.read_from_HDF()
+        # print("JK:", basic_JK.results["C"].mean[5], basic_JK.results["C"].e_JK[5], basic_JK.results["C"].e_JK[5]/basic_JK.results["C"].mean[5])
+
