@@ -29,18 +29,19 @@ class measurement:
     """
     This class contains functions that parses a sample to a resampling algorithm and then to a function that does a calculation
     """
-    def __init__(self, name, measure_func, sampling_args = ("JK", 0, 0)):
+    def __init__(self, name, measure_func = None, sampling_args = ("JK", 0, 0), infos = {}):
         self.name = name
         self.measure_func = measure_func
         self.sampling_args = sampling_args
         self.results = {}
+        infos["init"] = True
+        self.infos = infos
     def measure(self, orig_sample, args, check_for_bad_results = True):
         """
         Takes a sample and parses it to a function to obtain an estimate for the error
         """
         mean_res = self.measure_func(mean_orig_sample(orig_sample), args)     
         for res_key, res in mean_res.items():
-            # print(res_key, res)
             for val in res:
                 if np.isnan(val) or np.isinf(val):
                     sys.exit("NaN or inf in Mean: %s"%(res_key))
@@ -82,7 +83,11 @@ class measurement:
             for result in self.results.values():
                 f.create_dataset(str(result.name)+"_sample", data = result.sample)
                 f.create_dataset(str(result.name)+"_result", data = result.result)
-            # f.visit(print)
+            info_names = []
+            for key, value in self.infos.items():
+                f.create_dataset("info_%s"%key, data = value)
+                info_names.append(key)
+            f.create_dataset("info_names", data = info_names)
     def read_from_HDF(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
         """
         Reads a result from an HDF file
@@ -105,8 +110,19 @@ class measurement:
                 self.result_names.append(name.decode())
             for result_name in self.result_names:
                 self.results[result_name] = result(result_name, np.asarray(f[result_name+"_result"]), np.asarray(f[result_name+"_sample"]), self.sampling_args)
+            info_names = []
+            for name in f["info_names"][()]:
+                info_names.append(name.decode())
+            for key in info_names:
+                val = f["info_%s"%key][()]
+                if isinstance(val, bytes):
+                    self.infos[key] = f["info_%s"%key][()].decode()
+                else:
+                    self.infos[key] = f["info_%s"%key][()]
     def print_everything(self):
         print(self.name)
+        for key, value in self.infos.items():
+            print(key, value)
         for result in self.results.values():
             print(result.name, result.median, result.e)
 
@@ -190,7 +206,7 @@ class result:
         for x in data:
             if x < self.median[ind]+self.ep[ind] and x > self.median[ind]-self.em[ind]:
                 counter += 1
-        print(counter, stop, counter/stop)
+        print("%1.3\% of results are in the error (%i\%i)", (counter/(100*stop), counter, stop))
         fig = plt.figure(figsize=(6, 6))
         gs = fig.add_gridspec(2, 2,  width_ratios=(4, 1), height_ratios=(1, 4),
                             left=0.1, right=0.9, bottom=0.1, top=0.9,

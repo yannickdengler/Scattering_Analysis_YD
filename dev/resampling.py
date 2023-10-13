@@ -115,7 +115,8 @@ def resampling_GAUSSIAN(orig_sample, sampling_args):
     """
     std = sampling_args[1]                                  # array: one for every observable
     num_gauss = sampling_args[2]
-    random.seed(sampling_args[3])
+    if sampling_args[3] != 0:
+        random.seed(sampling_args[3])
     num_obs = len(orig_sample)
 
     Resamples = np.zeros((num_gauss, num_obs))
