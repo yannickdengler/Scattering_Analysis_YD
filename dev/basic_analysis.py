@@ -90,7 +90,7 @@ def main():
         corrs = HDF_log.get_pi_rho_pipi_corr_from_HDF5_logfile(filename)
         for i in range(len(corrs)):
             info["op"] = ops[i]
-            basic = errcl.measurement("basic_%s_%s"%(info["info_string"], ops[i]), measure_func = basic_analysis, sampling_args = ("BS_SAMEDIM",20,1), infos=info)
+            basic = errcl.measurement("basic_%s_%s"%(info["info_string"], ops[i]), measure_func = basic_analysis, sampling_args = ("BS_SAMEDIM",1000,1), infos=info)
             basic.measure(orig_sample=np.swapaxes(corrs[i],0,1), args=[None,])
             basic.print_to_HDF()
 

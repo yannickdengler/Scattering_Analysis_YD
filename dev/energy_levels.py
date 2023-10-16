@@ -57,7 +57,7 @@ def main():
         N_T = info["N_T"]
         for i in range(len(corrs)):
             info["op"] = ops[i]
-            energy_lev = errcl.measurement("energy_levels_%s_%s"%(info["info_string"], ops[i]), measure_func = energy_levels, sampling_args = ("BS_SAMEDIM",20,1), infos=info)
+            energy_lev = errcl.measurement("energy_levels_%s_%s"%(info["info_string"], ops[i]), measure_func = energy_levels, sampling_args = ("BS_SAMEDIM",1000,1), infos=info)
             energy_lev.measure(orig_sample=np.swapaxes(corrs[i],0,1), args=[fit_limits[i],])
             energy_lev.print_to_HDF()
 

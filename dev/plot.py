@@ -259,8 +259,8 @@ def main():
     # plot_basic_analysis()
     # plot_energy_levels()
     # plot_infinite_volume()
-    # compare_energy_levels()
-    plot_phase_shift()
+    compare_energy_levels()
+    # plot_phase_shift()
 
 
 if __name__ == "__main__":

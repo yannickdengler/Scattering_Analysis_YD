@@ -14,3 +14,421 @@ Terminated
 infinite_volume done!
 Terminated
 phase_shift done!
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta7.05m1-0.80m2-0.80/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 7.05 -0.80 -0.80
+Number of Motecarlo steps:  101
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][101][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta7.2m1-0.78m2-0.78/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 7.2 -0.78 -0.78
+Number of Motecarlo steps:  150
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][150][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta7.2m1-0.75m2-0.75/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 7.2 -0.75 -0.75
+Number of Motecarlo steps:  121
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][121][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta7.2m1-0.794m2-0.794/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 7.2 -0.794 -0.794
+Number of Motecarlo steps:  101
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][101][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta6.9m1-0.87m2-0.87/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 6.9 -0.87 -0.87
+Number of Motecarlo steps:  400
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][400][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta7.05m1-0.85m2-0.85/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 7.05 -0.85 -0.85
+Number of Motecarlo steps:  167
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][167][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta6.9m1-0.90m2-0.90/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 6.9 -0.90 -0.90
+Number of Motecarlo steps:  942
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][942][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta6.9m1-0.90m2-0.90/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 6.9 -0.90 -0.90
+Number of Motecarlo steps:  2904
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][2904][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt20Ls10beta7.2m1-0.78m2-0.78/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+20 10 7.2 -0.78 -0.78
+Number of Motecarlo steps:  195
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][195][20]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls8beta6.9m1-0.90m2-0.90/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 8 6.9 -0.90 -0.90
+Number of Motecarlo steps:  402
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][402][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls8beta7.2m1-0.78m2-0.78/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 8 7.2 -0.78 -0.78
+Number of Motecarlo steps:  401
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][401][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt20Ls10beta7.05m1-0.80m2-0.80/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+20 10 7.05 -0.80 -0.80
+Number of Motecarlo steps:  500
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][500][20]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta7.05m1-0.82m2-0.82/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 7.05 -0.82 -0.82
+Number of Motecarlo steps:  134
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][134][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt16Ls8beta6.9m1-0.90m2-0.90/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+16 8 6.9 -0.90 -0.90
+Number of Motecarlo steps:  651
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][651][16]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta7.2m1-0.78m2-0.78/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 7.2 -0.78 -0.78
+Number of Motecarlo steps:  425
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][425][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta7.05m1-0.85m2-0.85/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 7.05 -0.85 -0.85
+Number of Motecarlo steps:  84
+Number of sources:  1
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][1][84][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta7.05m1-0.835m2-0.835/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 7.05 -0.835 -0.835
+Number of Motecarlo steps:  619
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][619][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta6.9m1-0.91m2-0.91/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 6.9 -0.91 -0.91
+Number of Motecarlo steps:  513
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][513][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta7.2m1-0.75m2-0.75/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 7.2 -0.75 -0.75
+Number of Motecarlo steps:  267
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][267][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta7.2m1-0.74m2-0.74/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 7.2 -0.74 -0.74
+Number of Motecarlo steps:  101
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][101][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta6.9m1-0.92m2-0.92/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 6.9 -0.92 -0.92
+Number of Motecarlo steps:  63
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][63][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls8beta7.05m1-0.835m2-0.835/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 8 7.05 -0.835 -0.835
+Number of Motecarlo steps:  402
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][402][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta7.05m1-0.835m2-0.835/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 7.05 -0.835 -0.835
+Number of Motecarlo steps:  313
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][313][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta6.9m1-0.92m2-0.92/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 6.9 -0.92 -0.92
+Number of Motecarlo steps:  550
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][550][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta6.9m1-0.91m2-0.91/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 6.9 -0.91 -0.91
+Number of Motecarlo steps:  1268
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][1268][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt20Ls10beta6.9m1-0.87m2-0.87/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+20 10 6.9 -0.87 -0.87
+Number of Motecarlo steps:  976
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][976][20]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta6.9m1-0.905m2-0.905/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 6.9 -0.905 -0.905
+Number of Motecarlo steps:  267
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][267][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt20Ls10beta6.9m1-0.90m2-0.90/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+20 10 6.9 -0.90 -0.90
+Number of Motecarlo steps:  1273
+Number of sources:  16
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][16][1273][20]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls12beta6.9m1-0.89m2-0.89/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 12 6.9 -0.89 -0.89
+Number of Motecarlo steps:  1019
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][1019][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta7.2m1-0.794m2-0.794/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 7.2 -0.794 -0.794
+Number of Motecarlo steps:  234
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][234][24]
+
+[create_scattering]logfile name:  /home/dengler_yannick/Documents/Isospin_2_analysis/Isospin_2_Analysis/input/isospin_logfiles/rsyncVSC/runsSp4/Lt24Ls14beta6.9m1-0.89m2-0.89/out/out_scattering_I2
+[create_scattering]hdf5 file directory:  /home/dengler_yannick/Documents/Scattering_Analysis_YD/output/HDF5_logfiles
+24 14 6.9 -0.89 -0.89
+Number of Motecarlo steps:  461
+Number of sources:  4
+Isospin channel:  2
+Writing Correlators...
+50  operators (w/ imag):  ['pi1', 'pi1_im', 'pi2', 'pi2_im', 'rho1_11', 'rho1_11_im', 'rho2_11', 'rho2_11_im', 'rho1_12', 'rho1_12_im', 'rho2_12', 'rho2_12_im', 'rho1_13', 'rho1_13_im', 'rho2_13', 'rho2_13_im', 'rho1_21', 'rho1_21_im', 'rho2_21', 'rho2_21_im', 'rho1_22', 'rho1_22_im', 'rho2_22', 'rho2_22_im', 'rho1_23', 'rho1_23_im', 'rho2_23', 'rho2_23_im', 'rho1_31', 'rho1_31_im', 'rho2_31', 'rho2_31_im', 'rho1_32', 'rho1_32_im', 'rho2_32', 'rho2_32_im', 'rho1_33', 'rho1_33_im', 'rho2_33', 'rho2_33_im', 'AD', 'AD_im', 'BC', 'BC_im', 'pi', 'pi_im', 'rho', 'rho_im', 'pipi', 'pipi_im']
+Size of Correlator array [num_Operators][num_sources][num_Montecarlotimes][N_T]:[50][4][461][24]
+
+HDF5 done!
+/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/basic_analysis.py:46: RuntimeWarning: overflow encountered in sinh
+  return np.sinh(eff_mass*(T_2-index))/np.sinh(eff_mass*(T_2-(index+1))) - ratio                                               # {results}[result_array]
+/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/basic_analysis.py:46: RuntimeWarning: invalid value encountered in double_scalars
+  return np.sinh(eff_mass*(T_2-index))/np.sinh(eff_mass*(T_2-(index+1))) - ratio                                               # {results}[result_array]
+basic_analysis done!
+/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/basic_analysis.py:46: RuntimeWarning: overflow encountered in sinh
+  return np.sinh(eff_mass*(T_2-index))/np.sinh(eff_mass*(T_2-(index+1))) - ratio                                               # {results}[result_array]
+/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/basic_analysis.py:46: RuntimeWarning: invalid value encountered in double_scalars
+  return np.sinh(eff_mass*(T_2-index))/np.sinh(eff_mass*(T_2-(index+1))) - ratio                                               # {results}[result_array]
+Traceback (most recent call last):
+  File "/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/energy_levels.py", line 171, in <module>
+    main()
+  File "/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/energy_levels.py", line 61, in main
+    energy_lev.measure(orig_sample=np.swapaxes(corrs[i],0,1), args=[fit_limits[i],])
+  File "/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/error_classes.py", line 58, in measure
+    res_tmp = self.measure_func(Resample, args)                               
+  File "/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/energy_levels.py", line 40, in energy_levels
+    for key, value in calc_const(Correlators, args).items():
+  File "/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/energy_levels.py", line 16, in calc_const
+    popt, pcov = curve_fit(f=corr_fit_fun_cosh, xdata=xdata[fit_limits[0]:fit_limits[1]+1], ydata=Correlator[fit_limits[0]:fit_limits[1]+1])
+  File "/home/dengler_yannick/.local/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py", line 794, in curve_fit
+    raise RuntimeError("Optimal parameters not found: " + errmsg)
+RuntimeError: Optimal parameters not found: Number of calls to function has reached maxfev = 800.
+energy_levels done!
+/home/dengler_yannick/.local/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:833: OptimizeWarning: Covariance of the parameters could not be estimated
+  warnings.warn('Covariance of the parameters could not be estimated',
+/home/dengler_yannick/.local/lib/python3.10/site-packages/numpy/core/fromnumeric.py:43: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  result = getattr(asarray(obj), method)(*args, **kwds)
+Traceback (most recent call last):
+  File "/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/infinite_volume.py", line 310, in <module>
+    main()
+  File "/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/infinite_volume.py", line 66, in main
+    inf_vol_const.measure(orig_sample=E_0_const, args=[N_Ls,mass_Goldstone])
+  File "/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/error_classes.py", line 51, in measure
+    Resamples = rs.resampling(orig_sample, self.sampling_args)
+  File "/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/resampling.py", line 39, in resampling
+    return np.swapaxes(orig_sample,0,1)
+  File "<__array_function__ internals>", line 180, in swapaxes
+  File "/home/dengler_yannick/.local/lib/python3.10/site-packages/numpy/core/fromnumeric.py", line 594, in swapaxes
+    return _wrapfunc(a, 'swapaxes', axis1, axis2)
+  File "/home/dengler_yannick/.local/lib/python3.10/site-packages/numpy/core/fromnumeric.py", line 54, in _wrapfunc
+    return _wrapit(obj, method, *args, **kwds)
+  File "/home/dengler_yannick/.local/lib/python3.10/site-packages/numpy/core/fromnumeric.py", line 43, in _wrapit
+    result = getattr(asarray(obj), method)(*args, **kwds)
+numpy.AxisError: axis2: axis 1 is out of bounds for array of dimension 1
+infinite_volume done!
+/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/generalizedzeta.py:26: RuntimeWarning: divide by zero encountered in double_scalars
+  res += np.exp(-(y_2-q))/(y_2-q)
+/home/dengler_yannick/Documents/Scattering_Analysis_YD/dev/phase_shift.py:28: RuntimeWarning: invalid value encountered in double_scalars
+  tan_PS = np.pi**(3/2.)*q*Zeta
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.870_m2-0.870_T20_L10_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.870_m2-0.870_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.890_m2-0.890_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.890_m2-0.890_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T16_L8_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T20_L10_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T24_L8_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.910_m2-0.910_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.910_m2-0.910_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.920_m2-0.920_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.920_m2-0.920_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.800_m2-0.800_T20_L10_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.800_m2-0.800_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.835_m2-0.835_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.835_m2-0.835_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.835_m2-0.835_T24_L8_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.850_m2-0.850_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.850_m2-0.850_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.750_m2-0.750_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.750_m2-0.750_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.780_m2-0.780_T20_L10_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.780_m2-0.780_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.780_m2-0.780_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.780_m2-0.780_T24_L8_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.794_m2-0.794_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.794_m2-0.794_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.870_m2-0.870_T20_L10_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.870_m2-0.870_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.890_m2-0.890_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.890_m2-0.890_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T16_L8_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T20_L10_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.900_m2-0.900_T24_L8_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.910_m2-0.910_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.910_m2-0.910_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.920_m2-0.920_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta6.900_m1-0.920_m2-0.920_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.800_m2-0.800_T20_L10_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.800_m2-0.800_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.835_m2-0.835_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.835_m2-0.835_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.835_m2-0.835_T24_L8_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.850_m2-0.850_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.050_m1-0.850_m2-0.850_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.750_m2-0.750_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.750_m2-0.750_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.780_m2-0.780_T20_L10_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.780_m2-0.780_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.780_m2-0.780_T24_L14_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.780_m2-0.780_T24_L8_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.794_m2-0.794_T24_L12_logfile.hdf5
+output/HDF5_logfiles/Scattering_src_I2_SP(4)_beta7.200_m1-0.794_m2-0.794_T24_L14_logfile.hdf5
+phase_shift done!

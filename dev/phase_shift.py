@@ -261,6 +261,27 @@ def main():
             phase_shift.measure(orig_sample=E_0s, args=(N_L,mass_Goldstone))
             phase_shift.print_to_HDF()
 
+    for filename in filelist:
+        print(filename)
+        info = HDF_log.get_info_from_HDF5_logfile(filename)
+        N_T = info["N_T"]
+        N_L = info["N_L"]
+        info_str = "Scattering_I%s_%s_beta%1.3f_m1%1.3f_m2%1.3f"%(info["isospin_channel"],info["gauge_group"],info["beta"],info["m_1"],info["m_2"])
+        # inf_vol = errcl.measurement("infinite_volume_%s_pi"%(info_str))
+        inf_vol = errcl.measurement("infinite_volume_const_%s_pi"%(info_str))
+        inf_vol.read_from_HDF()
+        mass_Goldstone = inf_vol.results["m_inf"].median[0]
+        energy_levels = errcl.measurement("energy_levels_%s_pipi"%(info["info_string"]))
+        energy_levels.read_from_HDF()
+        # E_0s = np.swapaxes(energy_levels.results["E_0"].sample,0,1)
+        # if energy_levels.results["E_0"].median[0]*0.99 > 2*mass_Goldstone:
+        E_0s = np.swapaxes(energy_levels.results["E_0_const"].sample,0,1)
+        if energy_levels.results["E_0_const"].median[0]*0.99 > 2*mass_Goldstone:
+            # phase_shift = errcl.measurement("phase_shift_%s"%(info["info_string"]), measure_func = calc_phase_shift, sampling_args = ["DONT_RESAMPLE",])
+            phase_shift = errcl.measurement("phase_shift_const_%s"%(info["info_string"]), measure_func = calc_phase_shift, sampling_args = ["DONT_RESAMPLE",])
+            phase_shift.measure(orig_sample=E_0s, args=(N_L,mass_Goldstone))
+            phase_shift.print_to_HDF()
+
 
 
     # ensemble_list = []
