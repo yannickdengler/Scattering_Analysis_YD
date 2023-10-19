@@ -134,7 +134,7 @@ def create_scattering(filename,hdfpath="./output/HDF5_logfiles/"):
             Operators_w_im.append(Operator)
             Operators_w_im.append(Operator+"_im")
         
-        print("Number of Motecarlo steps: ", len(Montecarlotimes))
+        print("Number of Montecarlo steps: ", len(Montecarlotimes))
         print("Number of sources: ", num_src)
         print("Isospin channel: ", isospin_channel)
 

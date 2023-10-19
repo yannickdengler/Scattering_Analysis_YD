@@ -36,6 +36,8 @@ class measurement:
         self.results = {}
         infos["init"] = True
         self.infos = infos
+        for key, val in infos.items():
+            self.infos[key] = val
     def measure(self, orig_sample, args, check_for_bad_results = True):
         """
         Takes a sample and parses it to a function to obtain an estimate for the error
@@ -125,6 +127,8 @@ class measurement:
             print(key, value)
         for result in self.results.values():
             print(result.name, result.median, result.e)
+    def file_exists(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
+        return os.path.exists(hdfpath+self.name+".hdf5")
 
 def JK_err(Sample, res):                                                            
     """
@@ -177,6 +181,8 @@ class result:
             self.e = []
             self.ep = []
             self.em = []
+            self.median_p = []
+            self.median_m = []
             for tmp in np.swapaxes(res_sample,0,1):
                 percentage_std = 0.682689
                 num = len(tmp)                                                  # num_results
@@ -189,6 +195,8 @@ class result:
                 em_tmp = abs(tmp_2[high_ind]-median)
                 self.ep.append(ep_tmp)
                 self.em.append(em_tmp)
+                self.median_p.append(median+ep_tmp)
+                self.median_m.append(median-em_tmp)
                 self.e.append(max(ep_tmp,em_tmp))
             if sampling_args[0] == "JK" or sampling_args[0] == "JK_SAMEDIM":
                 self.e_JK = JK_err(res_sample, result)

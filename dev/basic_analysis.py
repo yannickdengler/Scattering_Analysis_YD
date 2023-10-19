@@ -93,40 +93,6 @@ def main():
             basic = errcl.measurement("basic_%s_%s"%(info["info_string"], ops[i]), measure_func = basic_analysis, sampling_args = ("BS_SAMEDIM",1000,1), infos=info)
             basic.measure(orig_sample=np.swapaxes(corrs[i],0,1), args=[None,])
             basic.print_to_HDF()
-
-        # C_plot = {}
-        # for i, op in zip(range(3),("pi", "rho", "pipi")):
-        #     basic = errcl.measurement("basic_%s_%s"%(info["info_string"], op))
-        #     basic.read_from_HDF()
-
-        #     C_plot[op+"_m"] = basic.results["C"].median
-        #     C_plot[op+"_ep"] = basic.results["C"].ep
-        #     C_plot[op+"_em"] = basic.results["C"].em
-        #     plt.errorbar(x=np.arange(len(C_plot[op+"_m"])), y=C_plot[op+"_m"], yerr=(C_plot[op+"_ep"],C_plot[op+"_em"]), label = op)
-        # plt.yscale("log")
-        # plt.ylabel("C")
-        # plt.xlabel("$n_t$")
-        # plt.legend()
-        # plt.grid()
-        # plt.title(info["info_string"])
-        # plt.savefig("plots/Corr_"+info["info_string"]+".pdf")
-        # plt.clf()
-
-        # m_eff_plot = {}
-        # for op in ("pi", "rho", "pipi"):
-        #     basic = errcl.measurement("basic_%s_%s"%(info["info_string"], op))
-        #     basic.read_from_HDF()
-        #     m_eff_plot[op+"_m"] = basic.results["m_eff_impl_deri"].median
-        #     m_eff_plot[op+"_ep"] = basic.results["m_eff_impl_deri"].ep
-        #     m_eff_plot[op+"_em"] = basic.results["m_eff_impl_deri"].em
-        #     plt.errorbar(x=np.arange(len(m_eff_plot[op+"_m"])), y=m_eff_plot[op+"_m"], yerr=(m_eff_plot[op+"_ep"],m_eff_plot[op+"_em"]), label = op)
-        # plt.ylabel("C")
-        # plt.xlabel("$n_t$")
-        # plt.legend()
-        # plt.grid()
-        # plt.title(info["info_string"])
-        # plt.savefig("plots/m_eff_"+info["info_string"]+".pdf")
-        # plt.clf()
         
 if __name__ == "__main__":
     main()
