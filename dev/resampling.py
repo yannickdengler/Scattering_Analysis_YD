@@ -36,7 +36,10 @@ def resampling(orig_sample, sampling_args):                # orig_sample = [obse
                 sys.exit("Sample for GAUSSIAN is not 1 dimensional")
         return resampling_GAUSSIAN(orig_sample, sampling_args)
     elif sampling_args[0] == "DONT_RESAMPLE":
-        return np.swapaxes(orig_sample,0,1)
+        if sampling_args[1] == 0:                                                                       # how many resamples do you want to take?
+            return np.swapaxes(orig_sample,0,1)
+        else:
+            return np.swapaxes(orig_sample,0,1)[:sampling_args[1]]
     elif sampling_args[0] == "None":
         return np.asarray([np.mean(orig_sample,axis=1),])
     else:

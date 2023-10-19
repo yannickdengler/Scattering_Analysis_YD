@@ -22,7 +22,7 @@ def add_pi_rho_pipi_average_I2(Operators, Correlators, N_L):
         Operators.append(Op+"_im")
     rho_tmp = []
     rho_im_tmp = []
-    for Op in ("rho1_11", "rho1_12", "rho1_13", "rho1_21", "rho1_22", "rho1_23", "rho1_31", "rho1_32", "rho1_33", "rho2_11", "rho2_12", "rho2_13", "rho2_21", "rho2_22", "rho2_23", "rho2_31", "rho2_32", "rho2_33"):
+    for Op in ("rho1_11", "rho2_11"):
         rho_tmp.append(Correlators[Operators.index(Op)]/(2*pow(N_L,3))) 
         rho_im_tmp.append(Correlators[Operators.index(Op+"_im")]/(2*pow(N_L,3))) 
     rho = np.mean(rho_tmp,axis=0)
@@ -134,7 +134,7 @@ def create_scattering(filename,hdfpath="./output/HDF5_logfiles/"):
             Operators_w_im.append(Operator)
             Operators_w_im.append(Operator+"_im")
         
-        print("Number of Motecarlo steps: ", len(Montecarlotimes))
+        print("Number of Montecarlo steps: ", len(Montecarlotimes))
         print("Number of sources: ", num_src)
         print("Isospin channel: ", isospin_channel)
 

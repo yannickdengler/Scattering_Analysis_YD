@@ -55,8 +55,23 @@ def energy_levels_Fabian(data, args):                                           
 
 ################################ CALCULATION ####################################
 
+def create_all_filenames():
+    PATH = "output/HDF5_logfiles/"
+    temp = "Scattering_src"
+    filelist = os.listdir(PATH)
+    resultfile_list = []
+    num = len(temp)
+    for file in filelist:
+        length = len(file)
+        if file[:num] == temp:
+            resultfile_list.append(file[:length-5])         
+
+    with open("input/filenames_energy_levels_all", "w") as file:
+        for filename in resultfile_list:
+            file.write(PATH+"%s"%filename+".hdf5\n")
+
 def main():
-    filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/HDF5_filelist_full", "str")
+    filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_energy_levels", "str")
     ops = ("pi", "rho", "pipi")
     for filename in filelist:
         info = HDF_log.get_info_from_HDF5_logfile(filename)
@@ -94,6 +109,7 @@ def main_Fabian():
                 energy_lev.print_to_HDF()
 
 if __name__ == "__main__":
+    # create_all_filenames()
     # main()
     main_Fabian()
 

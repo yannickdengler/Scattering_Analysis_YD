@@ -2,8 +2,7 @@ import numpy as np
 from scipy.optimize import bisect
 import error_classes as errcl
 import read_HDF5_logfile as HDF_log 
-import matplotlib.pyplot as plt
-
+import os
 
 def calc_corr(Correlators, args):                               # Correlators [Ops][N_T] 
     result = {}      
@@ -82,8 +81,24 @@ def basic_analysis(Correlators, args):                                          
 
 ################################ CALCULATION ####################################
 
+def create_all_filenames():
+    PATH = "output/HDF5_logfiles/"
+    temp = "Scattering_src"
+    filelist = os.listdir(PATH)
+    resultfile_list = []
+    num = len(temp)
+    for file in filelist:
+        length = len(file)
+        if file[:num] == temp:
+            resultfile_list.append(file[:length-5])         
+
+    with open("input/filenames_basic_analysis_all", "w") as file:
+        for filename in resultfile_list:
+            file.write(PATH+"%s"%filename+".hdf5\n")
+
+
 def main():
-    filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/HDF5_filelist_full", "str")
+    filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_basic_analysis", "str")
     ops = ("pi", "rho", "pipi")
     for filename in filelist:
         info = HDF_log.get_info_from_HDF5_logfile(filename)
@@ -95,6 +110,7 @@ def main():
             basic.print_to_HDF()
         
 if __name__ == "__main__":
+    # create_all_filenames()
     main()
 
 

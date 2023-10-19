@@ -136,7 +136,7 @@ def plot_energy_levels_Fabian(plot_corr = True, plot_m_eff = True):
     ops = ("pi", "rho", "pipi")
     resultfile_list = get_result_files("energy_levels_Fabian")
     for resultfile in resultfile_list:
-        print(resultfile)
+        # print(resultfile)
         if resultfile[len(resultfile)-3:] == "_pi":
             file = resultfile[:len(resultfile)-2]
             if plot_corr:
@@ -192,7 +192,7 @@ def plot_energy_levels_Fabian(plot_corr = True, plot_m_eff = True):
                 plt.legend()
                 plt.grid()
                 plt.title(infos["info_string"])
-                plt.show()
+                # plt.show()
                 plt.savefig("plots/m_eff_fit_Fabian_2_"+infos["info_string"]+".pdf")
                 plt.clf()
 
@@ -249,7 +249,7 @@ def plot_infinite_volume():
             plt.legend()
             plt.grid()
             plt.title(infos["info_string"])
-            plt.show()
+            # plt.show()
             plt.savefig("plots/infinite_volume_"+infos["info_string"]+".pdf")
             plt.clf()
 
@@ -327,13 +327,6 @@ def plot_phase_shift():
         yerr.append([phase_shift.results["P_cot_PS_prime"].ep,phase_shift.results["P_cot_PS_prime"].em])
         x.append(phase_shift.results["P_2_prime"].median)
         xerr.append([phase_shift.results["P_2_prime"].ep,phase_shift.results["P_2_prime"].em])
-        # if not (ensemble_str in ensemble_list):
-        #     color_ind += 1
-        #     ensemble_list.append(ensemble_str)
-        #     plt.errorbar(x=phase_shift.results["P_2_prime"].median, xerr = (phase_shift.results["P_2_prime"].ep,phase_shift.results["P_2_prime"].em), y=phase_shift.results["P_cot_PS_prime"].median, yerr=(phase_shift.results["P_cot_PS_prime"].ep,phase_shift.results["P_cot_PS_prime"].em), label = ensemble_str, ls = "", capsize=5, markersize=10, color = color_arr[color_ind])
-        # else:
-        #     plt.errorbar(x=phase_shift.results["P_2_prime"].median, xerr = (phase_shift.results["P_2_prime"].ep,phase_shift.results["P_2_prime"].em), y=phase_shift.results["P_cot_PS_prime"].median, yerr=(phase_shift.results["P_cot_PS_prime"].ep,phase_shift.results["P_cot_PS_prime"].em), ls = "", capsize=5, markersize=10, color = color_arr[color_ind])
-
 
     norm = matplotlib.colors.Normalize(vmin=min(rho_pi), vmax=max(rho_pi), clip=True)
     mapper = cm.ScalarMappable(norm=norm, cmap='viridis')
@@ -360,10 +353,9 @@ def fit_func_p4(P2, a, b, c):
 def fit_func_p6(P2, a, b, c, d):
     return a + b*P2 + c*P2*P2 + d*P2*P2*P2
 
-def plot_phase_shift_fit(zoom = [0.008,10,-0.11,0.2]):
+def plot_P_cot_PS_fit(zoom = [0.008,10,-0.11,0.2]):
     ensemble_list = []
     color_ind = -1
-
 
     y = []
     yerr = []
@@ -393,20 +385,8 @@ def plot_phase_shift_fit(zoom = [0.008,10,-0.11,0.2]):
         yerr.append([phase_shift.results["P_cot_PS_prime"].ep,phase_shift.results["P_cot_PS_prime"].em])
         x.append(phase_shift.results["P_2_prime"].median)
         xerr.append([phase_shift.results["P_2_prime"].ep,phase_shift.results["P_2_prime"].em])
-        # if info["level"] == 0:
-        #     y.append(phase_shift.results["P_cot_PS_prime"].median)
-        #     yerr.append([phase_shift.results["P_cot_PS_prime"].ep,phase_shift.results["P_cot_PS_prime"].em])
-        #     x.append(phase_shift.results["P_2_prime"].median)
-        #     xerr.append([phase_shift.results["P_2_prime"].ep,phase_shift.results["P_2_prime"].em])
-        # if info["level"] == 1:
-        #     y1.append(phase_shift.results["P_cot_PS_prime"].median)
-        #     y1err.append([phase_shift.results["P_cot_PS_prime"].ep,phase_shift.results["P_cot_PS_prime"].em])
-        #     x1.append(phase_shift.results["P_2_prime"].median)
-        #     x1err.append([phase_shift.results["P_2_prime"].ep,phase_shift.results["P_2_prime"].em])
 
-
-
-    phase_shift_fit = errcl.measurement("phase_shift_fit")
+    phase_shift_fit = errcl.measurement("phase_shift_fit_P_cot_PS")
     phase_shift_fit.read_from_HDF()
     xarr = np.logspace(np.log(min(x)[0]*0.9),np.log(max(x)[0]*1.1), 500)
     # xarr = np.linspace(min(min(x))*0.9, max(max(x))*1.1, 500)
@@ -488,7 +468,7 @@ def main():
     # plot_phase_shift()
     plot_phase_shift_fit()
     plot_phase_shift_fit(zoom=[0.01,0.6,-0.11, 0.01])
-    # print_phase_shift_data()
+    print_phase_shift_data()
 
 
 if __name__ == "__main__":

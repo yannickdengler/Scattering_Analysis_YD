@@ -4,6 +4,7 @@ import read_HDF5_logfile as HDF_log
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit 
 import plot
+import os
 
 color_arr = ["blue", "green", "red", "purple", "lime", "black"]
 
@@ -39,10 +40,41 @@ def infinite_volume(data, args):
     
 ################################ CALCULATION ####################################
 
+def create_all_filenames():
+    PATH = "output/result_files/"
+    tmp = "energy_levels_Fabian"
+    filelist = os.listdir(PATH)
+    resultfile_list = []
+    num = len(tmp)
+    for file in filelist:
+        length = len(file)
+        if file[:num] == tmp:
+            resultfile_list.append(file[:length-5])         
+
+    beta_m_str = ""
+    beta_m_str_list = []
+    filelist_list = []
+    for file in resultfile_list:
+        if file[len(file)-5:] == "_pipi":
+            meas_energlev = errcl.measurement(file)                     # without hdf5
+            meas_energlev.read_from_HDF()
+            info = meas_energlev.infos
+            beta_m_str = "beta%1.3f_m1%1.3f_m2%1.3f"%(info["beta"],info["m_1"],info["m_2"])
+            if not (beta_m_str in beta_m_str_list):
+                beta_m_str_list.append(beta_m_str)
+                filelist_list.append([])
+            filelist_list[beta_m_str_list.index(beta_m_str)].append(file[:len(file)-5])
+
+    with open("input/filenames_infinite_volume_all", "w") as filestream:
+        for filelist in filelist_list:
+            for file in filelist:
+                filestream.write("%s\t"%file)
+            filestream.write("\n")
+
 def main():
     ops = ("pi", "rho", "pipi")
     filelist_list = []
-    with open("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/HDF5_filelist_infinite_volume", "r") as f:
+    with open("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_infinite_volume", "r") as f:
         for lines in f.readlines():
             if lines[0] != "#":
                 filelist_list.append(lines.split())
@@ -77,21 +109,26 @@ def main():
 
 def main_Fabian():
     ops = ("pi", "rho", "pipi")
-    beta_m_str = ""
-    beta_m_str_list = []
-    filelist = plot.get_result_files("energy_levels_Fabian")
     filelist_list = []
-    for file in filelist:
-        if file[len(file)-5:] == "_pipi":
-            print(file)
-            meas_energlev = errcl.measurement(file)                     # without hdf5
-            meas_energlev.read_from_HDF()
-            info = meas_energlev.infos
-            beta_m_str = "beta%1.3f_m1%1.3f_m2%1.3f"%(info["beta"],info["m_1"],info["m_2"])
-            if not (beta_m_str in beta_m_str_list):
-                beta_m_str_list.append(beta_m_str)
-                filelist_list.append([])
-            filelist_list[beta_m_str_list.index(beta_m_str)].append(file[:len(file)-5])
+    with open("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_infinite_volume_all", "r") as f:
+        for lines in f.readlines():
+            if lines[0] != "#":
+                filelist_list.append(lines.split())
+    # beta_m_str = ""
+    # beta_m_str_list = []
+    # filelist = plot.get_result_files("energy_levels_Fabian")
+    # filelist_list = []
+    # for file in filelist:
+    #     if file[len(file)-5:] == "_pipi":
+    #         print(file)
+    #         meas_energlev = errcl.measurement(file)                     # without hdf5
+    #         meas_energlev.read_from_HDF()
+    #         info = meas_energlev.infos
+    #         beta_m_str = "beta%1.3f_m1%1.3f_m2%1.3f"%(info["beta"],info["m_1"],info["m_2"])
+    #         if not (beta_m_str in beta_m_str_list):
+    #             beta_m_str_list.append(beta_m_str)
+    #             filelist_list.append([])
+    #         filelist_list[beta_m_str_list.index(beta_m_str)].append(file[:len(file)-5])
 
     for filelist in filelist_list:
         if len(filelist) > 1:
@@ -414,6 +451,7 @@ def main_Fabian():
 
 
 if __name__ == "__main__":
+    # create_all_filenames()
     # main()
     main_Fabian()
 
