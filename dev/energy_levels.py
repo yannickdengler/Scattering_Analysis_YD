@@ -1,7 +1,6 @@
 import numpy as np
 import error_classes as errcl
 import read_HDF5_logfile as HDF_log 
-import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import basic_analysis as basic
 import os

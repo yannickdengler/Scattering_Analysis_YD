@@ -1,6 +1,5 @@
 import numpy as np
 import error_classes as errcl
-import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit 
 
 
@@ -61,7 +60,7 @@ def create_all_filenames():
         for filename in resultfile_list:
             file.write("%s"%filename+"\n")
 
-def fit_p_cot_PS():
+def fit_P_cot_PS():
     PATH = "output/result_files/"
     filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_fit", "str")
     P_cot_PS = []
@@ -91,56 +90,10 @@ def fit_p_cot_PS():
     phase_shift_fit = errcl.measurement("phase_shift_fit_P_cot_PS", measure_func=fit_func_p_cot_PS,sampling_args=("DONT_RESAMPLE",0), infos=infos)
     phase_shift_fit.measure(orig_sample=data, args = None)
     phase_shift_fit.print_to_HDF()
-    xarr = np.linspace(0, 1)
-    yarr2 = fit_func_p2(xarr, phase_shift_fit.results["a4"].median[0], phase_shift_fit.results["b4"].median[0])
-    yarr4 = fit_func_p4(xarr, phase_shift_fit.results["a4"].median[0], phase_shift_fit.results["b4"].median[0], phase_shift_fit.results["c4"].median[0])
-    yarr6 = fit_func_p6(xarr, phase_shift_fit.results["a6"].median[0], phase_shift_fit.results["b6"].median[0], phase_shift_fit.results["c6"].median[0], phase_shift_fit.results["d6"].median[0])
-    plt.plot(xarr, yarr2)
-    plt.plot(xarr, yarr4)
-    plt.plot(xarr, yarr6)
-    plt.scatter(phase_shift_fit.results["P_2_prime"].median, phase_shift_fit.results["P_cot_PS_prime"].median)
-    plt.show()
-
-def fit_a_0_eff():
-    PATH = "output/result_files/"
-    filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_fit", "str")
-    tan_PS_P_prime = []
-    P_2 = []
-    filenames = []
-    for resultfile in resultfile_list:
-        phase_shift = errcl.measurement(resultfile)
-        if phase_shift.file_exists():
-            phase_shift.read_from_HDF()
-            tan_PS_P_prime_tmp = [tan/P for tan, P in zip(np.swapaxes(phase_shift.results["tan_PS"].sample,0,1)[0], np.swapaxes(phase_shift.results["P_prime"].sample,0,1)[0])]
-            P_2_tmp = np.swapaxes(phase_shift.results["P_2_prime"].sample,0,1)[0]
-            if not(any(np.isnan(tan_PS_P_prime_tmp)) or any(np.isinf(tan_PS_P_prime_tmp)) or any(np.isnan(P_2_tmp)) or any(np.isinf(P_2_tmp))):
-                if phase_shift.results["P_2_prime"].median[0] < 0.4:
-                    filenames.append(resultfile)
-                    phase_shift.read_from_HDF()
-                    tan_PS_P_prime.append([tan/P for tan, P in zip(np.swapaxes(phase_shift.results["tan_PS"].sample,0,1)[0], np.swapaxes(phase_shift.results["P_prime"].sample,0,1)[0])])
-                    P_2.append(np.swapaxes(phase_shift.results["P_2_prime"].sample,0,1)[0])
-    data = np.zeros((2*len(filenames), len(P_cot_PS[0])))
-    for i in range(len(P_cot_PS[0])):
-        for j in range(len(filenames)):
-            data[j][i] = P_cot_PS[j][i]
-    for i in range(len(P_2[0])):
-        for j in range(len(filenames)):
-            data[j+len(filenames)][i] = P_2[j][i]
-    infos = {}
-    infos["filenames"] = filenames
-    phase_shift_fit = errcl.measurement("phase_shift_fit_P_cot_PS", measure_func=fit_func_tan_PS,sampling_args=("DONT_RESAMPLE",0), infos=infos)
-    phase_shift_fit.measure(orig_sample=data, args = None)
-    phase_shift_fit.print_to_HDF()
-    xarr = np.linspace(0, 1)
-    yarr = fit_func_p2(xarr, fit_func_tan.results["a"].median[0], phase_shift_fit.results["b"].median[0])
-    plt.plot(xarr, yarr)
-    plt.scatter(phase_shift_fit.results["P_2_prime"].median, phase_shift_fit.results["P_cot_PS_prime"].median)
-    plt.show()
-
 
 if __name__ == "__main__":
     # create_all_filenames()
-    fit_p_cot_PS()
+    fit_P_cot_PS()
 
 
 
