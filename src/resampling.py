@@ -35,8 +35,13 @@ def resampling(orig_sample, sampling_args):                # orig_sample = [obse
             if len(orig_sample[i]) != 1:
                 sys.exit("Sample for GAUSSIAN is not 1 dimensional")
         return resampling_GAUSSIAN(orig_sample, sampling_args)
+    elif sampling_args[0] == "DONT_RESAMPLE":
+        if sampling_args[1] == 0:                                                                       # how many resamples do you want to take?
+            return np.swapaxes(orig_sample,0,1)
+        else:
+            return np.swapaxes(orig_sample,0,1)[:sampling_args[1]]
     elif sampling_args[0] == "None":
-        return [np.mean(orig_sample,axis=1),]
+        return np.asarray([np.mean(orig_sample,axis=1),])
     else:
         sys.exit("No valid sampling method given!")
 
@@ -75,16 +80,18 @@ def resampling_BS_SAMEDIM(orig_sample, sampling_args):
     Resamples an orig_sample of Observables by bootstrapping num times, 
     """
     num_BS = sampling_args[1]
+    if sampling_args[2] != 0:
+        random.seed(sampling_args[2])
     num_obs = len(orig_sample)
     num_mont = len(orig_sample[0])
 
     Resamples = np.zeros((num_BS, num_obs))
 
-    for i in range(num_mont):
-        for j in range(num_BS):
+    for i in range(num_BS):
+        for j in range(num_mont):
             randint = random.randint(0,num_mont-1)
             for k in range(num_obs):
-                Resamples[j][k] += orig_sample[k][randint]/num_mont
+                Resamples[i][k] += orig_sample[k][randint]/num_mont
     return Resamples
 
 def resampling_BS_DIFFDIM(orig_sample, sampling_args):
@@ -92,8 +99,8 @@ def resampling_BS_DIFFDIM(orig_sample, sampling_args):
     Resamples an orig_sample of Observables by bootstrapping num times, 
     """
     num_BS = sampling_args[1]
+    random.seed(sampling_args[2])
     num_obs = len(orig_sample)
-    # num_mont = len(orig_sample[0])                                # kann nicht generell definiert werden!
 
     Resamples = np.zeros((num_BS, num_obs))
 
@@ -111,6 +118,8 @@ def resampling_GAUSSIAN(orig_sample, sampling_args):
     """
     std = sampling_args[1]                                  # array: one for every observable
     num_gauss = sampling_args[2]
+    if sampling_args[3] != 0:
+        random.seed(sampling_args[3])
     num_obs = len(orig_sample)
 
     Resamples = np.zeros((num_gauss, num_obs))

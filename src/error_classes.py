@@ -29,18 +29,21 @@ class measurement:
     """
     This class contains functions that parses a sample to a resampling algorithm and then to a function that does a calculation
     """
-    def __init__(self, name, measure_func, sampling_args = ("JK", 0, 0)):
+    def __init__(self, name, measure_func = None, sampling_args = ("JK", 0, 0), infos = {}):
         self.name = name
         self.measure_func = measure_func
         self.sampling_args = sampling_args
         self.results = {}
+        infos["init"] = True
+        self.infos = infos
+        for key, val in infos.items():
+            self.infos[key] = val
     def measure(self, orig_sample, args, check_for_bad_results = True):
         """
         Takes a sample and parses it to a function to obtain an estimate for the error
         """
         mean_res = self.measure_func(mean_orig_sample(orig_sample), args)     
         for res_key, res in mean_res.items():
-            # print(res_key, res)
             for val in res:
                 if np.isnan(val) or np.isinf(val):
                     sys.exit("NaN or inf in Mean: %s"%(res_key))
@@ -82,7 +85,11 @@ class measurement:
             for result in self.results.values():
                 f.create_dataset(str(result.name)+"_sample", data = result.sample)
                 f.create_dataset(str(result.name)+"_result", data = result.result)
-            # f.visit(print)
+            info_names = []
+            for key, value in self.infos.items():
+                f.create_dataset("info_%s"%key, data = value)
+                info_names.append(key)
+            f.create_dataset("info_names", data = info_names)
     def read_from_HDF(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
         """
         Reads a result from an HDF file
@@ -105,10 +112,23 @@ class measurement:
                 self.result_names.append(name.decode())
             for result_name in self.result_names:
                 self.results[result_name] = result(result_name, np.asarray(f[result_name+"_result"]), np.asarray(f[result_name+"_sample"]), self.sampling_args)
+            info_names = []
+            for name in f["info_names"][()]:
+                info_names.append(name.decode())
+            for key in info_names:
+                val = f["info_%s"%key][()]
+                if isinstance(val, bytes):
+                    self.infos[key] = f["info_%s"%key][()].decode()
+                else:
+                    self.infos[key] = f["info_%s"%key][()]
     def print_everything(self):
         print(self.name)
+        for key, value in self.infos.items():
+            print(key, value)
         for result in self.results.values():
             print(result.name, result.median, result.e)
+    def file_exists(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
+        return os.path.exists(hdfpath+self.name+".hdf5")
 
 def JK_err(Sample, res):                                                            
     """
@@ -161,6 +181,8 @@ class result:
             self.e = []
             self.ep = []
             self.em = []
+            self.median_p = []
+            self.median_m = []
             for tmp in np.swapaxes(res_sample,0,1):
                 percentage_std = 0.682689
                 num = len(tmp)                                                  # num_results
@@ -173,6 +195,8 @@ class result:
                 em_tmp = abs(tmp_2[high_ind]-median)
                 self.ep.append(ep_tmp)
                 self.em.append(em_tmp)
+                self.median_p.append(median+ep_tmp)
+                self.median_m.append(median-em_tmp)
                 self.e.append(max(ep_tmp,em_tmp))
             if sampling_args[0] == "JK" or sampling_args[0] == "JK_SAMEDIM":
                 self.e_JK = JK_err(res_sample, result)
