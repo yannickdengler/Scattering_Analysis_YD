@@ -35,9 +35,10 @@ class measurement:
         self.sampling_args = sampling_args
         self.results = {}
         infos["init"] = True
-        self.infos = infos
+        # print(infos)
         for key, val in infos.items():
-            self.infos[key] = val
+            infos[key] = val
+        self.infos = infos
     def measure(self, orig_sample, args, check_for_bad_results = True):
         """
         Takes a sample and parses it to a function to obtain an estimate for the error

@@ -101,11 +101,26 @@ def main_Fabian():
                     err_arr.append(err)
                 for err in file[op+"/Delta_A"][()][:2]:
                     err_arr.append(err)
-                energy_lev = errcl.measurement("energy_levels_Fabian_%s_%s"%(info["info_string"], op), measure_func = energy_levels_Fabian, sampling_args = ("GAUSSIAN",err_arr,2000,0), infos=info)
+                energy_lev = errcl.measurement("energy_levels_Fabian_%s_%s"%(info["info_string"], op), measure_func = energy_levels_Fabian, sampling_args = ("GAUSSIAN",err_arr,100,0), infos=info)
+                # print(len(data), len(data[0]))
                 energy_lev.measure(orig_sample=data, args=None)
+                # print(len(energy_lev.results["E"].sample), len(energy_lev.results["E"].sample[0]))
                 energy_lev.results["E"].e = file[op+"/Delta_E"][()][:2]
                 energy_lev.results["A"].e = file[op+"/Delta_A"][()][:2]
                 energy_lev.print_to_HDF()
+                # if op == "pi":
+                #     print("Fab: ", "b%1.3fm%1.3fL%iT%i,E1: %1.3f,E2: %1.3f"%(file[op+"/beta"][()],file[op+"/m_1"][()],file[op+"/N_L"][()],file[op+"/N_T"][()],file[op+"/E"][0],file[op+"/E"][1]))
+                #     print("Mee: ", "b%1.3fm%1.3fL%iT%i,E1: %1.3f,E2: %1.3f"%(energy_lev.infos["beta"],energy_lev.infos["m_1"],energy_lev.infos["N_L"],energy_lev.infos["N_T"],energy_lev.results["E"].median[0],energy_lev.results["E"].median[1]))
+                    
+                #     print("\n")
+                    # print(file[op+"/gauge_group"][()])
+                    # print(file[op+"/beta"][()])
+                    # print(file[op+"/N_L"][()])
+                    # print(file[op+"/N_T"][()])
+                    # print(file[op+"/m_1"][()])
+                    # print(energy_lev.results["E"].median)
+                    # print(energy_lev.results["E"].mean)
+                    # print(file[op+"/E"][()[:2]])
 
 if __name__ == "__main__":
     # create_all_filenames()

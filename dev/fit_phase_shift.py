@@ -10,6 +10,10 @@ def fit_func_p4(P2, a, b, c):
     return a + b*P2 + c*P2*P2
 def fit_func_p6(P2, a, b, c, d):
     return a + b*P2 + c*P2*P2 + d*P2*P2*P2
+def fit_func_p4_fixed_400(P2, b, c):
+    return -1/400 + b*P2 + c*P2*P2
+def fit_func_p2_fixed_400(P2, b):
+    return -1/400 + b*P2
 
 def fit_func_p_cot_PS(data, args):       
     result = {}
@@ -21,7 +25,12 @@ def fit_func_p_cot_PS(data, args):
     a4, b4, c4 = popt
     popt, pcov = curve_fit(fit_func_p6, P_2_prime, P_cot_PS_prime)
     a6, b6, c6, d6 = popt
+    popt, pcov = curve_fit(fit_func_p4_fixed_400, P_2_prime, P_cot_PS_prime)
+    b4_fixed, c4_fixed = popt
+    popt, pcov = curve_fit(fit_func_p2_fixed_400, P_2_prime, P_cot_PS_prime)
+    b2_fixed = popt
     result["a2"], result["b2"], result["a4"], result["b4"], result["c4"], result["a6"], result["b6"], result["c6"], result["d6"] = [[a2,],[b2,],[a4,],[b4,],[c4,],[a6,],[b6,],[c6,],[d6,]] 
+    result["b2_fixed"], result["b4_fixed"], result["c4_fixed"] = [[b2_fixed,],[b4_fixed,],[c4_fixed,]]
     result["a_0_2"] = [1./a2,]
     result["a_0_4"] = [1./a4,]
     result["a_0_6"] = [1./a6,]
@@ -29,20 +38,25 @@ def fit_func_p_cot_PS(data, args):
     result["P_cot_PS_prime"] = P_cot_PS_prime
     return result
 
-def fit_func_tan(P2, a, b):
-    return a/(a*b*P2+1)
+# def fit_func_tan(P2, a, b):
+#     return 1/(b*P2+a)
 
-def fit_func_tan_PS(data, args):       
-    result = {}
-    tan_PS = data[:len(data)//2]
-    P_2_prime = data[len(data)//2:]
-    popt, pcov = curve_fit(fit_func_tan, P_2_prime, tan_PS)
-    a, b = popt
-    result["a"] = [a,]
-    result["b"] = [b,]
-    result["P_2_prime"] = P_2_prime
-    result["tan_PS"] = tan_PS
-    return result
+# def fit_func_tan_PS(data, args):       
+#     result = {}
+#     tan_PS = data[:len(data)//2]
+#     P_2_prime = data[len(data)//2:]
+#     popt, pcov = curve_fit(fit_func_tan, P_2_prime, tan_PS)
+#     a, b = popt
+#     plt.scatter(P_2_prime, tan_PS)
+#     xarr = np.linspace(min(P_2_prime), max(P_2_prime), 500)
+#     plt.plot(xarr, fit_func_tan(xarr, a, b))
+#     plt.show()
+#     print(a, b)
+#     result["a"] = [a,]
+#     result["b"] = [b,]
+#     result["P_2_prime"] = P_2_prime
+#     result["tan_PS"] = tan_PS
+#     return result
 
 ################################ CALCULATION ####################################
 
@@ -67,7 +81,7 @@ def fit_p_cot_PS():
     P_cot_PS = []
     P_2 = []
     filenames = []
-    for resultfile in resultfile_list:
+    for resultfile in filelist:
         phase_shift = errcl.measurement(resultfile)
         if phase_shift.file_exists():
             phase_shift.read_from_HDF()
@@ -75,7 +89,7 @@ def fit_p_cot_PS():
             P_2_tmp = np.swapaxes(phase_shift.results["P_2_prime"].sample,0,1)[0]
             if not(any(np.isnan(P_cot_PS_tmp)) or any(np.isinf(P_cot_PS_tmp)) or any(np.isnan(P_2_tmp)) or any(np.isinf(P_2_tmp))):
                 if phase_shift.results["P_2_prime"].median[0] < 0.4:
-                    filenames.append(resultfile)
+                    filenames.append(str(resultfile))
                     phase_shift.read_from_HDF()
                     P_cot_PS.append(np.swapaxes(phase_shift.results["P_cot_PS_prime"].sample,0,1)[0])
                     P_2.append(np.swapaxes(phase_shift.results["P_2_prime"].sample,0,1)[0])
@@ -87,7 +101,8 @@ def fit_p_cot_PS():
         for j in range(len(filenames)):
             data[j+len(filenames)][i] = P_2[j][i]
     infos = {}
-    infos["filenames"] = filenames
+    for i in range(len(filenames)):
+        infos["filenames_%i"%i] = filenames[i]
     phase_shift_fit = errcl.measurement("phase_shift_fit_P_cot_PS", measure_func=fit_func_p_cot_PS,sampling_args=("DONT_RESAMPLE",0), infos=infos)
     phase_shift_fit.measure(orig_sample=data, args = None)
     phase_shift_fit.print_to_HDF()
@@ -102,12 +117,11 @@ def fit_p_cot_PS():
     plt.show()
 
 def fit_a_0_eff():
-    PATH = "output/result_files/"
     filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_fit", "str")
     tan_PS_P_prime = []
     P_2 = []
     filenames = []
-    for resultfile in resultfile_list:
+    for resultfile in filelist:
         phase_shift = errcl.measurement(resultfile)
         if phase_shift.file_exists():
             phase_shift.read_from_HDF()
@@ -119,16 +133,16 @@ def fit_a_0_eff():
                     phase_shift.read_from_HDF()
                     tan_PS_P_prime.append([tan/P for tan, P in zip(np.swapaxes(phase_shift.results["tan_PS"].sample,0,1)[0], np.swapaxes(phase_shift.results["P_prime"].sample,0,1)[0])])
                     P_2.append(np.swapaxes(phase_shift.results["P_2_prime"].sample,0,1)[0])
-    data = np.zeros((2*len(filenames), len(P_cot_PS[0])))
-    for i in range(len(P_cot_PS[0])):
+    data = np.zeros((2*len(filenames), len(tan_PS_P_prime[0])))
+    for i in range(len(tan_PS_P_prime[0])):
         for j in range(len(filenames)):
-            data[j][i] = P_cot_PS[j][i]
+            data[j][i] = tan_PS_P_prime[j][i]
     for i in range(len(P_2[0])):
         for j in range(len(filenames)):
             data[j+len(filenames)][i] = P_2[j][i]
     infos = {}
     infos["filenames"] = filenames
-    phase_shift_fit = errcl.measurement("phase_shift_fit_P_cot_PS", measure_func=fit_func_tan_PS,sampling_args=("DONT_RESAMPLE",0), infos=infos)
+    phase_shift_fit = errcl.measurement("phase_shift_fit_a_0_eff", measure_func=fit_func_tan_PS,sampling_args=("DONT_RESAMPLE",0), infos=infos)
     phase_shift_fit.measure(orig_sample=data, args = None)
     phase_shift_fit.print_to_HDF()
     xarr = np.linspace(0, 1)
@@ -141,6 +155,7 @@ def fit_a_0_eff():
 if __name__ == "__main__":
     # create_all_filenames()
     fit_p_cot_PS()
+    # fit_a_0_eff()
 
 
 
