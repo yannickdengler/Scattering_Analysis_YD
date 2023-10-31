@@ -34,6 +34,7 @@ def infinite_volume(data, args):
     result["N_Ls"] = N_Ls
     result["N_Ls_inv"] = N_Ls_inv
     result["m_inf"] = [popt[0],]
+    result["m_inf_or_low_E"] = [min(min(E_0s), popt[0]),]
     result["A_M"] = [popt[1],]
     return result
     
@@ -160,25 +161,31 @@ def main_Fabian():
                 inf_vol0_rho = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, "rho"))
                 inf_vol0_rho.read_from_HDF()
                 m_pi_inf = inf_vol0_pi.results["m_inf"].median[0]
+                m_pi_inf_e = inf_vol0_pi.results["m_inf"].e[0]
                 m_rho_inf = inf_vol0_rho.results["m_inf"].median[0]
+                m_rho_inf_e = inf_vol0_rho.results["m_inf"].e[0]
                 m_rho_pi = m_rho_inf/m_pi_inf
                 inf_vol0 = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, op))
                 inf_vol0.read_from_HDF()
                 inf_vol0.infos["m_pi_inf"] = m_pi_inf
+                inf_vol0.infos["m_pi_inf_err"] = m_pi_inf_e
                 inf_vol0.infos["m_rho_inf"] = m_rho_inf
+                inf_vol0.infos["m_rho_inf_err"] = m_rho_inf_e
                 inf_vol0.infos["m_rho_pi"] = m_rho_pi
                 inf_vol0.print_to_HDF()
                 inf_vol1 = errcl.measurement("infinite_volume_Fabian_level_1_%s_%s"%(info_str, op))
                 inf_vol1.read_from_HDF()
                 inf_vol1.infos["m_pi_inf"] = m_pi_inf
+                inf_vol1.infos["m_pi_inf_err"] = m_pi_inf_e
                 inf_vol1.infos["m_rho_inf"] = m_rho_inf
+                inf_vol1.infos["m_rho_inf_err"] = m_rho_inf_e
                 inf_vol1.infos["m_rho_pi"] = m_rho_pi
                 inf_vol1.print_to_HDF()
-
 
 if __name__ == "__main__":
     # create_all_filenames()
     # main()
+
     main_Fabian()
 
 

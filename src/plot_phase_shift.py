@@ -304,8 +304,52 @@ def main():
     # plot_dispersion_relation()
 
 
+def print_phase_shift_data():
+    with open("output/phase_shift_data.dat", "w") as file:
+        with open("output/phase_shift_data_mathematica.dat", "w") as file_mathematica:
+            file.write("P_2\tP_2_err\P_cot\tP_cot_err\ttan/P\ttan/P_err\tm_rho/m_pi\n")
+            file_mathematica.write("i\tP_2\tP_2_err\P_cot\tP_cot_err\ttan/P\ttan/P_err\tm_rho/m_pi\n{")
+            i = 1
+            for result in get_results_from_files("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_plot"):
+                rho_pi = result["infos/m_rho_pi"]
+                file.write("%.30f\t%.30f\t%.30f\t%.30f\t%.30f\t%.30f\t%.30f\n"%(result["P_2_prime"].median[0],result["P_2_prime"].e[0],result["P_cot_PS_prime"].median[0],result["P_cot_PS_prime"].e[0],result["tan_PS/P_prime"].median[0],result["P_cot_PS_prime"].e[0],rho_pi))
+
+                rho_pi = result["infos/m_rho_pi"]
+                file_mathematica.write("{%i,%.30f,%.30f,%.30f,%.30f,%.30f,%.30f,%.30f},"%(i,result["P_2_prime"].median[0],result["P_2_prime"].e[0],result["P_cot_PS_prime"].median[0],result["P_cot_PS_prime"].e[0],result["tan_PS/P_prime"].median[0],result["P_cot_PS_prime"].e[0],rho_pi))                                  # DONT forget to erase last comma
+                i = i+1
+            file_mathematica.write("}")
+
+def print_energy_level_data():
+    with open("output/energy_level_data.dat", "w") as file:
+    # with open("output/energy_level_data_short.dat", "w") as file:
+        file.write("gauge_group\tbeta\tm_1\tm_2\tN_T\tN_L\tlevel\tm_rho_pi\tm_pi_inf\tm_pi_inf_err\tE\t\tE_err\n")
+        for result in get_results_from_files("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift"):
+            for i in range(len(result["E"].median)):
+                file.write("%s\t\t"%result["infos/gauge_group"])
+                file.write("%1.3f\t"%result["infos/beta"])
+                file.write("%1.3f\t"%result["infos/m_1"])
+                file.write("%1.3f\t"%result["infos/m_2"])
+                file.write("%i\t"%result["N_Ts"].median[i])
+                file.write("%i\t"%result["N_Ls"].median[i])
+                file.write("%i\t"%result["infos/level"])
+                file.write("%e\t"%result["infos/m_rho_pi"])
+                file.write("%e\t"%result["infos/m_pi_inf"])
+                file.write("%e\t"%result["infos/m_pi_inf_err"])
+                file.write("%e\t"%result["E"].median[i])
+                file.write("%e\t"%result["E"].e[i])
+                file.write("\n")
+            file.write("\n")
+            
+                # file.write("\n___________________________________________________________________________________________________\n")
+                
+                # print(result.keys(),"\n")
+                # file.write("P_2\tP_2_err\P_cot\tP_cot_err\ttan/P\ttan/P_err\tm_rho/m_pi\n")
+
 if __name__ == "__main__":
-    main()
+    # main()
+    # print_phase_shift_data()
+    print_energy_level_data()
+
 
 
 
@@ -582,24 +626,6 @@ if __name__ == "__main__":
 #         plt.savefig("plots/P_cot_PS_fit_zoom.pdf")
 #     plt.show()
 #     plt.clf()
-
-def print_phase_shift_data():
-    with open("output/phase_shift_data.dat", "w") as file:
-        file.write("P_cot_PS\tP_cot_PS_err\tP_2\tP_2_err\tm_rho/m_pi\n")
-
-        # resultfile_list = get_result_files("phase_shift")
-        # resultfile_list = get_result_files("phase_shift_const")
-        resultfile_list = get_result_files("phase_shift_Fabian")
-        for resultfile in resultfile_list:
-            phase_shift = errcl.measurement(resultfile)
-            phase_shift.read_from_HDF()
-            info = phase_shift.infos
-            pi_energy_lev = errcl.measurement("energy_levels_Fabian_Scattering_I%s_%s_beta%1.3f_m1%1.3f_m2%1.3f_T%i_L%i_pi"%(info["isospin_channel"],info["gauge_group"],info["beta"],info["m_1"],info["m_2"],info["N_T"],info["N_L"]))
-            pi_energy_lev.read_from_HDF()
-            rho_energy_lev = errcl.measurement("energy_levels_Fabian_Scattering_I%s_%s_beta%1.3f_m1%1.3f_m2%1.3f_T%i_L%i_rho"%(info["isospin_channel"],info["gauge_group"],info["beta"],info["m_1"],info["m_2"],info["N_T"],info["N_L"]))
-            rho_energy_lev.read_from_HDF()
-            rho_pi = rho_energy_lev.results["E"].median[0]/pi_energy_lev.results["E"].median[0]
-            file.write("%e\t%e\t%e\t%e\t%e\n"%(phase_shift.results["P_cot_PS_prime"].median[0],phase_shift.results["P_cot_PS_prime"].e[0],phase_shift.results["P_2_prime"].median[0],phase_shift.results["P_2_prime"].e[0],rho_pi))
 
 
 
