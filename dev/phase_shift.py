@@ -24,19 +24,19 @@ def calc_phase_shift(data, args):
     N_L = args[0]
     mass_Goldstone = args[1]
     N_L_inv = 1./N_L
+    # P = generalized_mom_non_lattice(E_pipi, mass_Goldstone)
     P = generalized_mom(E_pipi, mass_Goldstone)
     q = P*N_L/(2*np.pi)
     Zeta = gz.Zeta(q**2)
-    tan_PS = np.pi**(3/2.)*q*Zeta
-    # print(mass_Goldstone, E_pipi,P,q,Zeta, tan_PS)
-    # if np.isinf(tan_PS) or np.isnan(tan_PS):
-    #     tan_PS = 0
-    M = 16*np.pi*tan_PS/np.sqrt(tan_PS**2+1)
+    tan_PS = np.pi**(3/2.)*q/Zeta
+    M = 16*np.pi*tan_PS/np.sqrt(tan_PS**2+1)                                                # sin(arctan(tan(x)))
     result["N_L"] = np.asarray((N_L,))
     result["N_L_inv"] = np.asarray((N_L_inv,))
     result["mass_Goldstone"] = np.asarray((mass_Goldstone,))
     result["E_pipi"] = np.asarray((E_pipi,))
     result["E_pipi_prime"] = np.asarray((E_pipi/mass_Goldstone,))
+    result["E_m_2m"] = np.asarray((E_pipi-2*mass_Goldstone,))
+    result["E_m_2m_prime"] = np.asarray((E_pipi/mass_Goldstone-2,))
     result["s_pipi"] = np.asarray((E_pipi**2,))
     result["s_pipi_prime"] = np.asarray(((E_pipi/mass_Goldstone)**2,))
     result["P"] = np.asarray((P,))
@@ -58,7 +58,6 @@ def calc_phase_shift(data, args):
     result["M"] = np.asarray((M,))
     result["M_2"] = np.asarray((M*M,))
     return result
-
 
 ################################ CALCULATION ####################################
 
@@ -101,23 +100,26 @@ def main():
                             E = [np.swapaxes(energy_levels.results["E"].sample,0,1)[i],]
                             phase_shift = errcl.measurement("phase_shift_Fabian_%i_%s"%(i, info["info_string"]), measure_func = calc_phase_shift, sampling_args = ["DONT_RESAMPLE",50], infos=info)
                             phase_shift.measure(orig_sample=E, args=(info["N_L"],mass_Goldstone))
+                            ########################### CHECK N_L
                             phase_shift.infos["m_rho_m_pi"] = m_rho_m_pi
                             phase_shift.print_to_HDF()
 
 def main_Fabian():
     filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_all", "str")
+    # filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_SU3", "str")
 
     for file in filelist:
         inf_vol = errcl.measurement(file)
         inf_vol.read_from_HDF()
+        N_Ls = inf_vol.results["N_Ls"].median
         info = inf_vol.infos
         for i in range(len(inf_vol.results["E"].median)):  
             info_string = "Scattering_I%s_%s_beta%1.3f_m1%1.3f_m2%1.3f_T%i_L%i"%(info["isospin_channel"],info["gauge_group"], info["beta"],info["m_1"],info["m_2"], inf_vol.results["N_Ts"].median[i], inf_vol.results["N_Ls"].median[i])
             mass_Goldstone = inf_vol.results["mass_Goldstone"].median[0]
             if (inf_vol.results["E"].median[i] > 2*mass_Goldstone) and (inf_vol.results["E"].median[i] < 4*mass_Goldstone):
-                # print(inf_vol.results["E"].median[i], mass_Goldstone)
                 phase_shift = errcl.measurement("phase_shift_Fabian_level_%i_%s"%(info["level"], info_string), measure_func = calc_phase_shift, sampling_args = ["DONT_RESAMPLE",0], infos=info)
-                phase_shift.measure(orig_sample=[np.swapaxes(inf_vol.results["E"].sample,0,1)[i],], args=(info["N_L"],mass_Goldstone))
+                # phase_shift = errcl.measurement("phase_shift_Fabiantest_level_%i_%s"%(info["level"], info_string), measure_func = calc_phase_shift, sampling_args = ["None",0], infos=info)
+                phase_shift.measure(orig_sample=[np.swapaxes(inf_vol.results["E"].sample,0,1)[i],], args=(N_Ls[i],mass_Goldstone))
                 phase_shift.print_to_HDF()
 
 

@@ -15,6 +15,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import resampling as rs
+import copy
 
 def mean_orig_sample(orig_sample):
     """
@@ -34,11 +35,11 @@ class measurement:
         self.measure_func = measure_func
         self.sampling_args = sampling_args
         self.results = {}
+        self.infos = {}
+        self.result_names = []
         infos["init"] = True
-        # print(infos)
         for key, val in infos.items():
-            infos[key] = val
-        self.infos = infos
+            self.infos[key] = val
     def measure(self, orig_sample, args, check_for_bad_results = True):
         """
         Takes a sample and parses it to a function to obtain an estimate for the error
@@ -130,12 +131,27 @@ class measurement:
             print(result.name, result.median, result.e)
     def file_exists(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
         return os.path.exists(hdfpath+self.name+".hdf5")
+    def add_info(self, key, val):
+        self.infos[key] = val
+    def add_all_infos(self, meas):
+        for key, val in meas.infos.items():
+            self.add_info(key = meas.name+"/"+key, val=val)
+    def add_result(self, key, val):
+        # print(key, val)
+        self.result_names.append(key)
+        self.results[key] = val
+        self.results[key].name = key
+    def add_all_results(self, meas):
+        for res_name in meas.result_names:
+            self.add_result(meas.name+"/"+res_name,meas.results[res_name])
+    def add_measurement(self, meas):
+        self.add_all_infos(meas)
+        self.add_all_results(meas)
 
 def JK_err(Sample, res):                                                            
     """
     Calculates the error for a delete-1 Jackknife Sample (not checked)
     """
-    print(len(Sample), len(Sample[0]), len(res))
 
     size = len(res)
     std = np.zeros(size)
@@ -192,8 +208,8 @@ class result:
                 self.median.append(median)
                 low_ind = math.ceil(num*(1-percentage_std)/2)
                 high_ind = math.floor(num*(1+percentage_std)/2)
-                ep_tmp = abs(tmp_2[low_ind]-median)
-                em_tmp = abs(tmp_2[high_ind]-median)
+                ep_tmp = abs(tmp_2[high_ind]-median)
+                em_tmp = abs(tmp_2[low_ind]-median)
                 self.ep.append(ep_tmp)
                 self.em.append(em_tmp)
                 self.median_p.append(median+ep_tmp)
@@ -243,3 +259,13 @@ class result:
             if any(np.isnan(res)):
                 nans += 1
         print(nans*100./tot,"%")
+
+
+
+if __name__ == "__main__":
+    combined_meas = measurement(name="all_SP4")
+    for filename in np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_combine_all_SP4", "str"):
+        add_meas = measurement(name=filename)
+        add_meas.read_from_HDF()
+        combined_meas.add_measurement(add_meas)
+    combined_meas.print_to_HDF()

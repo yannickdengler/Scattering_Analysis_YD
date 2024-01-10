@@ -37,6 +37,14 @@ def infinite_volume(data, args):
     result["m_inf_or_low_E"] = [min(min(E_0s), popt[0]),]
     result["A_M"] = [popt[1],]
     return result
+
+def calc_m_pi_rho_inf(data, args):   
+    result = {}
+    m_pi = data[0]
+    m_rho = data[1]
+    result["m_pi_rho"] = [m_pi/m_rho,]
+    result["m_rho_pi"] = [m_rho/m_pi,]
+    return result
     
 ################################ CALCULATION ####################################
 
@@ -109,7 +117,7 @@ def main():
 
 def main_Fabian():
     ops = ("pi", "rho", "pipi")
-    # ops = ("pi",)
+    # ops = ("pipi",)
     filelist_list = []
     with open("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_infinite_volume", "r") as f:
         for lines in f.readlines():
@@ -144,49 +152,81 @@ def main_Fabian():
                 info["info_str_inf"] = info_str
                 info["level"] = 0
                 inf_vol0 = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, op), measure_func = infinite_volume, sampling_args = ("DONT_RESAMPLE",0), infos=info)
+                
                 inf_vol0.measure(orig_sample=E_0, args=[N_Ls,mass_Goldstone,N_Ts])
                 inf_vol0.print_to_HDF()
                 info["level"] = 1
                 inf_vol1 = errcl.measurement("infinite_volume_Fabian_level_1_%s_%s"%(info_str, op), measure_func = infinite_volume, sampling_args = ("DONT_RESAMPLE",0), infos=info)
                 inf_vol1.measure(orig_sample=E_1, args=[N_Ls,mass_Goldstone,N_Ts])
                 inf_vol1.print_to_HDF()
-            for op in ops:
-                for files in filelist:
-                    meas_energlev = errcl.measurement(files+"_"+op)
-                    meas_energlev.read_from_HDF()
-                    info = meas_energlev.infos                
-                    info_str = "Scattering_%s_%s_beta%1.3f_m1%1.3f_m2%1.3f"%("I"+str(info["isospin_channel"]),info["gauge_group"],info["beta"],info["m_1"],info["m_2"])
-                inf_vol0_pi = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, "pi"))
-                inf_vol0_pi.read_from_HDF()
-                inf_vol0_rho = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, "rho"))
-                inf_vol0_rho.read_from_HDF()
-                m_pi_inf = inf_vol0_pi.results["m_inf"].median[0]
-                m_pi_inf_e = inf_vol0_pi.results["m_inf"].e[0]
-                m_rho_inf = inf_vol0_rho.results["m_inf"].median[0]
-                m_rho_inf_e = inf_vol0_rho.results["m_inf"].e[0]
-                m_rho_pi = m_rho_inf/m_pi_inf
-                inf_vol0 = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, op))
+
+            # meas_energlev = errcl.measurement(filelist[0]+"_pi")
+            # meas_energlev.read_from_HDF()
+            # info = meas_energlev.infos                
+            info_str = "Scattering_%s_%s_beta%1.3f_m1%1.3f_m2%1.3f"%("I"+str(info["isospin_channel"]),info["gauge_group"],info["beta"],info["m_1"],info["m_2"])
+            inf_vol_pi = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, "pi"))
+            inf_vol_pi.read_from_HDF()
+            inf_vol_rho = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, "rho"))
+            inf_vol_rho.read_from_HDF()
+            data = []
+            data.append(np.transpose(inf_vol_pi.results["m_inf"].sample)[0])
+            data.append(np.transpose(inf_vol_rho.results["m_inf"].sample)[0])
+            m_pi_rho = errcl.measurement("m_pi_rho", measure_func=calc_m_pi_rho_inf, sampling_args = ("DONT_RESAMPLE",0))
+            m_pi_rho.measure(orig_sample=data, args=None)
+            # m_pi_rho.print_everything()
+            for op in ops:                
+                inf_vol0 = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, op), measure_func = infinite_volume, sampling_args = ("DONT_RESAMPLE",0), infos=info)
                 inf_vol0.read_from_HDF()
-                inf_vol0.infos["m_pi_inf"] = m_pi_inf
-                inf_vol0.infos["m_pi_inf_err"] = m_pi_inf_e
-                inf_vol0.infos["m_rho_inf"] = m_rho_inf
-                inf_vol0.infos["m_rho_inf_err"] = m_rho_inf_e
-                inf_vol0.infos["m_rho_pi"] = m_rho_pi
-                inf_vol0.print_to_HDF()
-                inf_vol1 = errcl.measurement("infinite_volume_Fabian_level_1_%s_%s"%(info_str, op))
+                inf_vol1 = errcl.measurement("infinite_volume_Fabian_level_1_%s_%s"%(info_str, op), measure_func = infinite_volume, sampling_args = ("DONT_RESAMPLE",0), infos=info)
                 inf_vol1.read_from_HDF()
-                inf_vol1.infos["m_pi_inf"] = m_pi_inf
-                inf_vol1.infos["m_pi_inf_err"] = m_pi_inf_e
-                inf_vol1.infos["m_rho_inf"] = m_rho_inf
-                inf_vol1.infos["m_rho_inf_err"] = m_rho_inf_e
-                inf_vol1.infos["m_rho_pi"] = m_rho_pi
-                inf_vol1.print_to_HDF()
+                for key, result in m_pi_rho.results.items():
+                    inf_vol0.result_names.append(result.name)
+                    inf_vol0.results[result.name] = result
+                    inf_vol0.print_to_HDF()
+                    inf_vol1.result_names.append(result.name)
+                    inf_vol1.results[result.name] = result
+                    inf_vol1.print_to_HDF()
+
+            # exit()
+
+
+
+
+
+
+
+            # meas_energlev = errcl.measurement(files+"_"+op)
+            # meas_energlev.read_from_HDF()
+            # info = meas_energlev.infos                
+            # info_str = "Scattering_%s_%s_beta%1.3f_m1%1.3f_m2%1.3f"%("I"+str(info["isospin_channel"]),info["gauge_group"],info["beta"],info["m_1"],info["m_2"])
+            # inf_vol0_pi = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, "pi"))
+            # inf_vol0_pi.read_from_HDF()
+            # inf_vol0_rho = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, "rho"))
+            # inf_vol0_rho.read_from_HDF()
+            # m_pi_inf = inf_vol0_pi.results["m_inf"].median[0]
+            # m_pi_inf_e = inf_vol0_pi.results["m_inf"].e[0]
+            # m_rho_inf = inf_vol0_rho.results["m_inf"].median[0]
+            # m_rho_inf_e = inf_vol0_rho.results["m_inf"].e[0]
+            # m_rho_pi = m_rho_inf/m_pi_inf
+            # inf_vol0 = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, op))
+            # inf_vol0.read_from_HDF()
+            # inf_vol0.infos["m_pi_inf"] = m_pi_inf
+            # inf_vol0.infos["m_pi_inf_err"] = m_pi_inf_e
+            # inf_vol0.infos["m_rho_inf"] = m_rho_inf
+            # inf_vol0.infos["m_rho_inf_err"] = m_rho_inf_e
+            # inf_vol0.infos["m_rho_pi"] = m_rho_pi
+            # inf_vol0.print_to_HDF()
+            # inf_vol1 = errcl.measurement("infinite_volume_Fabian_level_1_%s_%s"%(info_str, op))
+            # inf_vol1.read_from_HDF()
+            # inf_vol1.infos["m_pi_inf"] = m_pi_inf
+            # inf_vol1.infos["m_pi_inf_err"] = m_pi_inf_e
+            # inf_vol1.infos["m_rho_inf"] = m_rho_inf
+            # inf_vol1.infos["m_rho_inf_err"] = m_rho_inf_e
+            # inf_vol1.infos["m_rho_pi"] = m_rho_pi
+            # inf_vol1.print_to_HDF()
 
 if __name__ == "__main__":
     # create_all_filenames()
     # main()
 
     main_Fabian()
-
-
-

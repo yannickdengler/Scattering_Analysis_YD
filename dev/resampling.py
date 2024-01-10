@@ -37,6 +37,7 @@ def resampling(orig_sample, sampling_args):                # orig_sample = [obse
         return resampling_GAUSSIAN(orig_sample, sampling_args)
     elif sampling_args[0] == "DONT_RESAMPLE":
         if sampling_args[1] == 0:                                                                       # how many resamples do you want to take?
+            print(len(orig_sample), len(orig_sample[0]))
             return np.swapaxes(orig_sample,0,1)
         else:
             return np.swapaxes(orig_sample,0,1)[:sampling_args[1]]
