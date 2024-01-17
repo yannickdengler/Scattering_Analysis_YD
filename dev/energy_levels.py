@@ -83,13 +83,15 @@ def main():
             energy_lev.measure(orig_sample=np.swapaxes(corrs[i],0,1), args=[fit_limits[i],])
             energy_lev.print_to_HDF()
 
-def main_Fabian():
+def main_Fabian(N_Gaussian = 1000):
     ops = ("pi", "rho", "pipi")
     PATH = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/energy_levels_fabian/"
     filelist = os.listdir(PATH)
     for file in filelist:
         with h5py.File(PATH+file) as file:
             info = HDF_log.get_info_from_Fabian_energy_levels(file)
+            info["resampling"] = "Gaussian"
+            info["num_resampling"] = N_Gaussian
             for op in ops:
                 data = []
                 for E in file[op+"/E"][()][:2]:
@@ -101,7 +103,7 @@ def main_Fabian():
                     err_arr.append(err)
                 for err in file[op+"/Delta_A"][()][:2]:
                     err_arr.append(err)
-                energy_lev = errcl.measurement("energy_levels_Fabian_%s_%s"%(info["info_string"], op), measure_func = energy_levels_Fabian, sampling_args = ("GAUSSIAN",err_arr,1000,0), infos=info)
+                energy_lev = errcl.measurement("energy_levels_Fabian_%s_%s"%(info["info_string"], op), measure_func = energy_levels_Fabian, sampling_args = ("GAUSSIAN",err_arr,N_Gaussian,0), infos=info)
                 energy_lev.measure(orig_sample=data, args=None)
                 energy_lev.results["E"].e = file[op+"/Delta_E"][()][:2]
                 energy_lev.results["A"].e = file[op+"/Delta_A"][()][:2]
@@ -115,7 +117,7 @@ def main_Fabian():
 if __name__ == "__main__":
     # create_all_filenames()
     # main()
-    main_Fabian()
+    main_Fabian(N_Gaussian=1000)
 
 
 

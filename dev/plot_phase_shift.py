@@ -222,7 +222,7 @@ def plot_a_0_vs_m_f_pi(squared):
         # plt.xlim([4,7.5])
         plt.xlim([0,7.5])
     # plt.ylim([-1.02,-0.18])
-    plt.ylim([-1.02,0])
+    plt.ylim([-1.4,0])
     handles, labels = plt.gca().get_legend_handles_labels()
     plt.legend()
     if squared:
@@ -698,9 +698,9 @@ def main():
 
     # add_m_pi_m_rho()
     # plot_a_0_vs_m_pi_m_rho()
-    plot_tan_PS()
-    plot_P_cot_PS()
-    # plot_PS()
+    # plot_tan_PS()
+    # plot_P_cot_PS()
+    plot_PS()
     # plot_energy_levels()
     # plot_a_0_vs_m_f_pi(squared = False)
     # plot_a_0_vs_m_f_pi(squared = True)

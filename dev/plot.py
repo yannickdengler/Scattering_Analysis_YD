@@ -271,7 +271,8 @@ def plot_infinite_volume():
 def compare_energy_levels():
     x_axis_counter = 0
     ops = ("pi", "rho", "pipi")
-    resultfile_list = get_result_files("infinite_volume_Scattering")
+    resultfile_list = get_result_files("infinite_volume_Fabian")
+    print(resultfile_list)
     for resultfile in resultfile_list:
         if resultfile[len(resultfile)-3:] == "_pi":
             file = resultfile[:len(resultfile)-2]
@@ -314,8 +315,8 @@ def compare_energy_levels():
 def main():
     # plot_basic_analysis()
     # plot_energy_levels()
-    # plot_energy_levels_Fabian()
-    plot_infinite_volume()
+    plot_energy_levels()
+    # plot_infinite_volume()
     # compare_energy_levels()
     # plot_phase_shift()
 

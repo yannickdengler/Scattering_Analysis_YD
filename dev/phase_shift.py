@@ -26,9 +26,16 @@ def calc_phase_shift(data, args):
     N_L_inv = 1./N_L
     # P = generalized_mom_non_lattice(E_pipi, mass_Goldstone)
     P = generalized_mom(E_pipi, mass_Goldstone)
-    q = P*N_L/(2*np.pi)
-    Zeta = gz.Zeta(q**2)
-    tan_PS = np.pi**(3/2.)*q/Zeta
+    if P == 0:
+        P = 1e-99
+        q = 1e-99
+        Zeta = -1e99
+        tan_PS = 1e-99
+    else:
+        q = P*N_L/(2*np.pi)
+        Zeta = gz.Zeta(q**2)
+        tan_PS = np.pi**(3/2.)*q/Zeta
+
     M = 16*np.pi*tan_PS/np.sqrt(tan_PS**2+1)                                                # sin(arctan(tan(x)))
     result["N_L"] = np.asarray((N_L,))
     result["N_L_inv"] = np.asarray((N_L_inv,))
@@ -57,6 +64,12 @@ def calc_phase_shift(data, args):
     result["Zeta"] = np.asarray((Zeta,))
     result["M"] = np.asarray((M,))
     result["M_2"] = np.asarray((M*M,))
+    # result["sigma"] = M**2/(16*np.pi*E_pipi**2)
+    # result["sigma_prime"] = M**2*mass_Goldstone**2/(16*np.pi*E_pipi**2)
+    # result["velocity"] = P/np.sqrt(mass_Goldstone**2+P**2)
+    if np.isnan(P/(tan_PS*mass_Goldstone)) or np.isinf(P/(tan_PS*mass_Goldstone)):
+        print("NaN or inf!")
+        print(P, q, Zeta, tan_PS, P/(tan_PS*mass_Goldstone), mass_Goldstone)
     return result
 
 ################################ CALCULATION ####################################
@@ -105,10 +118,12 @@ def main():
                             phase_shift.print_to_HDF()
 
 def main_Fabian():
+    # counter = 0
     filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_all", "str")
     # filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_SU3", "str")
 
     for file in filelist:
+        # print(file)
         inf_vol = errcl.measurement(file)
         inf_vol.read_from_HDF()
         N_Ls = inf_vol.results["N_Ls"].median
@@ -116,12 +131,14 @@ def main_Fabian():
         for i in range(len(inf_vol.results["E"].median)):  
             info_string = "Scattering_I%s_%s_beta%1.3f_m1%1.3f_m2%1.3f_T%i_L%i"%(info["isospin_channel"],info["gauge_group"], info["beta"],info["m_1"],info["m_2"], inf_vol.results["N_Ts"].median[i], inf_vol.results["N_Ls"].median[i])
             mass_Goldstone = inf_vol.results["mass_Goldstone"].median[0]
-            if (inf_vol.results["E"].median[i] > 2*mass_Goldstone) and (inf_vol.results["E"].median[i] < 4*mass_Goldstone):
+            if (inf_vol.results["E"].median[i]-inf_vol.results["E"].em[i] > 2*mass_Goldstone) and (inf_vol.results["E"].median[i]+inf_vol.results["E"].ep[i] < 4*mass_Goldstone):
                 phase_shift = errcl.measurement("phase_shift_Fabian_level_%i_%s"%(info["level"], info_string), measure_func = calc_phase_shift, sampling_args = ["DONT_RESAMPLE",0], infos=info)
                 # phase_shift = errcl.measurement("phase_shift_Fabiantest_level_%i_%s"%(info["level"], info_string), measure_func = calc_phase_shift, sampling_args = ["None",0], infos=info)
                 phase_shift.measure(orig_sample=[np.swapaxes(inf_vol.results["E"].sample,0,1)[i],], args=(N_Ls[i],mass_Goldstone))
                 phase_shift.print_to_HDF()
-
+                # counter += 1
+                # phase_shift.print_everything()
+    # print(counter)
 
 
 if __name__ == "__main__":

@@ -46,8 +46,21 @@ def get_info_from_Fabian_energy_levels(file):
     info["beta"] = file["pi/beta"][()]
     info["m_1"] = file["pi/m_1"][()]
     info["m_2"] = file["pi/m_2"][()]
+    info["N_hits"] = file["pi/N_hits"][()]
+    info["N_mont"] = file["pi/N_mont"][()]
     info["isospin_channel"] = file["pi/isospin_channel"][()]
     info["info_string"] = info_string
+
+    info["Nexp"] = file["pi/Nexp"][()]
+    info["antisymmetric"] = file["pi/antisymmetric"][()]
+    info["binsize"] = file["pi/binsize"][()]
+    info["chi2"] = file["pi/chi2"][()]
+    info["dof"] = file["pi/dof"][()]
+    info["montecarlotimes"] = file["pi/montecarlotimes"][()]
+    info["operators"] = file["pi/operators"][()]
+    info["plaquette"] = file["pi/plaquette"][()]
+    info["tmax"] = file["pi/tmax"][()]
+    info["tmin"] = file["pi/tmin"][()]
     return info
 
 def get_corr_ops_info_from_HDF5_logfile(filename):
