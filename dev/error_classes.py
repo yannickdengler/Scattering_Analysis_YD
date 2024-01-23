@@ -92,6 +92,7 @@ class measurement:
                 f.create_dataset("info_%s"%key, data = value)
                 info_names.append(key)
             f.create_dataset("info_names", data = info_names)
+        # self.print_everything()
     def read_from_HDF(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
         """
         Reads a result from an HDF file
@@ -131,6 +132,9 @@ class measurement:
             print(result.name, result.median, result.e)
     def file_exists(self, hdfpath = "/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/result_files/"):
         return os.path.exists(hdfpath+self.name+".hdf5")
+    def add_single_result(self, result):
+        self.result_names.append(result.name)
+        self.results[result.name] = result
     def add_info(self, key, val):
         self.infos[key] = val
     def add_all_infos(self, meas):

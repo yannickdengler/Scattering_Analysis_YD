@@ -3,6 +3,7 @@ import error_classes as errcl
 import read_HDF5_logfile as HDF_log 
 from scipy.optimize import curve_fit 
 import os
+import copy as cp
 
 color_arr = ["blue", "green", "red", "purple", "lime", "black"]
 
@@ -28,7 +29,7 @@ def infinite_volume(data, args):
         popt, pcov = curve_fit(f=inf_mass_fit_meson, xdata=N_Ls, ydata=E_0s)
         mass_Goldstone = mass_Goldstone_input
     result["mass_Goldstone_input"] = [mass_Goldstone_input,]
-    result["mass_Goldstone"] = [mass_Goldstone,]
+    # result["mass_Goldstone"] = [mass_Goldstone,]
     result["E"] = E_0s
     result["N_Ts"] = N_Ts
     result["N_Ls"] = N_Ls
@@ -144,26 +145,29 @@ def main_Fabian():
                     E_1.append(np.swapaxes(meas_energlev.results["E"].sample,0,1)[1])
                     N_Ls.append(info["N_L"])
                     N_Ts.append(info["N_T"])
-                    if op == "pi":
-                        mass_Goldstone = 0
-                    else:
-                        inf_vol = errcl.measurement("infinite_volume_Fabian_level_0_%s_pi"%(info_str))
-                        inf_vol.read_from_HDF()
-                        mass_Goldstone = inf_vol.results["m_inf"].median[0]
+                if op == "pi":
+                    mass_Goldstone = 0
+                else:
+                    print("infinite_volume_Fabian_level_0_%s_pi"%(info_str))
+                    inf_vol = errcl.measurement("infinite_volume_Fabian_level_0_%s_pi"%(info_str))
+                    inf_vol.read_from_HDF()
+                    mass_Goldstone = inf_vol.results["m_inf"].median[0]
+                    mass_Goldstone_res = cp.deepcopy(inf_vol.results["m_inf"])
+                    mass_Goldstone_res.name = "mass_Goldstone"
                 info["info_str_inf"] = info_str
                 info["level"] = 0
+                info["mass_Goldstone"] = mass_Goldstone
                 inf_vol0 = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, op), measure_func = infinite_volume, sampling_args = ("DONT_RESAMPLE",0), infos=info)
-                
                 inf_vol0.measure(orig_sample=E_0, args=[N_Ls,mass_Goldstone,N_Ts])
-                inf_vol0.print_to_HDF()
+                if op == "pi":
+                    mass_Goldstone_res = cp.deepcopy(inf_vol0.results["m_inf"])
+                    mass_Goldstone_res.name = "mass_Goldstone"
                 info["level"] = 1
                 inf_vol1 = errcl.measurement("infinite_volume_Fabian_level_1_%s_%s"%(info_str, op), measure_func = infinite_volume, sampling_args = ("DONT_RESAMPLE",0), infos=info)
                 inf_vol1.measure(orig_sample=E_1, args=[N_Ls,mass_Goldstone,N_Ts])
+                inf_vol0.print_to_HDF()
                 inf_vol1.print_to_HDF()
-
-            # meas_energlev = errcl.measurement(filelist[0]+"_pi")
-            # meas_energlev.read_from_HDF()
-            # info = meas_energlev.infos                
+              
             info_str = "Scattering_%s_%s_beta%1.3f_m1%1.3f_m2%1.3f"%("I"+str(info["isospin_channel"]),info["gauge_group"],info["beta"],info["m_1"],info["m_2"])
             inf_vol_pi = errcl.measurement("infinite_volume_Fabian_level_0_%s_%s"%(info_str, "pi"))
             inf_vol_pi.read_from_HDF()
@@ -181,23 +185,14 @@ def main_Fabian():
                 inf_vol1 = errcl.measurement("infinite_volume_Fabian_level_1_%s_%s"%(info_str, op), measure_func = infinite_volume, sampling_args = ("DONT_RESAMPLE",0), infos=info)
                 inf_vol1.read_from_HDF()
                 for key, result in m_pi_rho.results.items():
-                    inf_vol0.result_names.append(result.name)
-                    inf_vol0.results[result.name] = result
-                    inf_vol1.result_names.append(result.name)
-                    inf_vol1.results[result.name] = result
+                    inf_vol0.add_single_result(result)
+                    inf_vol1.add_single_result(result)
+                inf_vol0.add_single_result(mass_Goldstone_res)
+                inf_vol1.add_single_result(mass_Goldstone_res)
+                # inf_vol0.print_everything()
+                # inf_vol1.print_everything()
                 inf_vol0.print_to_HDF()
                 inf_vol1.print_to_HDF()
-    #             if op == "pipi":
-    #                 m_inf_tmp = inf_vol0.results["mass_Goldstone"].median[0]
-    #                 for i in range(len(inf_vol0.results["E"].median)):
-    #                     # print(Energ, 2*m_inf_tmp)            
-    #                     if (inf_vol0.results["E"].median[i]-inf_vol0.results["E"].em[i] > 2*mass_Goldstone) and (inf_vol0.results["E"].median[i]+inf_vol0.results["E"].ep[i] < 4*mass_Goldstone):
-    #                         counter += 1
-    #                 for i in range(len(inf_vol1.results["E"].median)):
-    #                     # print(Energ, 2*m_inf_tmp)            
-    #                     if (inf_vol1.results["E"].median[i]-inf_vol1.results["E"].em[i] > 2*mass_Goldstone) and (inf_vol1.results["E"].median[i]+inf_vol1.results["E"].ep[i] < 4*mass_Goldstone):
-    #                         counter += 1
-    # print(counter)
 
 if __name__ == "__main__":
     # create_all_filenames()

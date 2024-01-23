@@ -235,14 +235,14 @@ def write_phase_shift_fit_data():
                     filestream.write("%e\t"%phase_shift_fit_data[i][j])
                 filestream.write("\n")
 
-def write_phase_shift_data():
-    ind = 0
-    for file in os.listdir("output/result_files/"):
-        search_str = "phase_shift_fit_P_cot_PS"
-        if search_str in file:
-            phase_shift_data = []
-            phase_shift_fit = errcl.measurement(file[:len(file)-5])
-            phase_shift_fit.read_from_HDF()
+# def write_phase_shift_data():
+#     ind = 0
+#     for file in os.listdir("output/result_files/"):
+#         search_str = "phase_shift_fit_P_cot_PS"
+#         if search_str in file:
+#             phase_shift_data = []
+#             phase_shift_fit = errcl.measurement(file[:len(file)-5])
+#             phase_shift_fit.read_from_HDF()
 
 
 

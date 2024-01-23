@@ -700,10 +700,10 @@ def main():
     # plot_a_0_vs_m_pi_m_rho()
     # plot_tan_PS()
     # plot_P_cot_PS()
-    plot_PS()
+    # plot_PS()
     # plot_energy_levels()
-    # plot_a_0_vs_m_f_pi(squared = False)
-    # plot_a_0_vs_m_f_pi(squared = True)
+    plot_a_0_vs_m_f_pi(squared = False)
+    plot_a_0_vs_m_f_pi(squared = True)
 
     #######################################################
 
@@ -778,111 +778,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-    
-    # results = get_results_from_files("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_plot")
-    # # results = get_results_from_files("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_plot_SU3")
-    # # fit_result = get_result_file("phase_shift_fit_P_cot_PS")
-
-    # P_cot_PS, P_cot_PS_err, P_2, P_2_err, rho_pi = [[],[],[],[],[]]
-    # for i in range(len(results)):
-    #     rho_pi.append(results[i]["infos/m_rho_pi"])
-    #     P_2.append(results[i]["P_2"].median)
-    #     print("E_pipi: ", results[i]["E_pipi"].median)
-    #     print("tan_PS: ", results[i]["tan_PS"].median)
-    #     print("cot_PS: ", results[i]["cot_PS"].median)
-    #     print("P: ", results[i]["P"].median)
-    #     print("P_2: ", results[i]["P_2"].median)
-    #     print("m_inf: ", results[i]["mass_Goldstone"].median)
-    #     print("N_L: ", results[i]["N_L"].median)
-    #     print("\n")
-    #     P_2_err.append([results[i]["P_2"].ep,results[i]["P_2"].em])
-    #     P_cot_PS.append(results[i]["cot_PS"].median[0])
-    #     P_cot_PS_err.append([results[i]["cot_PS"].ep,results[i]["cot_PS"].em])
-    
-    # norm = matplotlib.colors.Normalize(vmin=min(rho_pi), vmax=max(rho_pi), clip=True)
-    # mapper = cm.ScalarMappable(norm=norm, cmap='viridis')
-    # time_color = np.array([(mapper.to_rgba(v)) for v in rho_pi])
-    # plt.colorbar(mappable=mapper, label = "$\\frac{m_{\\rho}}{m_{\\pi}}$")
-    # for i in range(len(results)):
-    #     # plt.errorbar(x=P_2[i], xerr = P_2_err[i], y=P_cot_PS[i], yerr=P_cot_PS_err[i], color = time_color[i], ls = "", capsize=5, markersize=10)
-    #     plt.scatter(x=P_2[i], y=P_cot_PS[i], color = time_color[i])
-    # if fit:
-    #     plot_fits_P_cot_PS(P_2, fit_result)
-
-
-    # # plt.axvline(0.4, color = "black", ls="--")
-    # log_txt = ""
-    # if log:
-    #     plt.xscale("log")
-    #     log_txt = "_log"
-    # plt.ylabel("$\\frac{Pcot(\delta)}{m_{\pi}}$")
-    # plt.xlabel("$\\frac{P^2}{m_{\pi}^2}$")
-    # plt.legend(fontsize = "x-small")
-    # plt.title(title)
-    # plt.grid()
-    # zoom_txt = ""
-    # if zoom == plot_tan_PS.__defaults__[0]:
-    #     zoom_txt = "_zoom"
-    # if zoom != False:
-    #     plt.xlim((zoom[0], zoom[1]))
-    #     plt.ylim((zoom[2], zoom[3]))
-    # plt.savefig("plots/P_cot_PS"+log_txt+save_app+zoom_txt+".pdf")
-    # plt.show()
-    # plt.clf()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

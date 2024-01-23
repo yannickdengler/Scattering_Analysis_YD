@@ -118,7 +118,6 @@ def main():
                             phase_shift.print_to_HDF()
 
 def main_Fabian():
-    # counter = 0
     filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_all", "str")
     # filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_SU3", "str")
 
@@ -135,10 +134,10 @@ def main_Fabian():
                 phase_shift = errcl.measurement("phase_shift_Fabian_level_%i_%s"%(info["level"], info_string), measure_func = calc_phase_shift, sampling_args = ["DONT_RESAMPLE",0], infos=info)
                 # phase_shift = errcl.measurement("phase_shift_Fabiantest_level_%i_%s"%(info["level"], info_string), measure_func = calc_phase_shift, sampling_args = ["None",0], infos=info)
                 phase_shift.measure(orig_sample=[np.swapaxes(inf_vol.results["E"].sample,0,1)[i],], args=(N_Ls[i],mass_Goldstone))
+                phase_shift.add_single_result(inf_vol.results["mass_Goldstone"])
                 phase_shift.print_to_HDF()
-                # counter += 1
                 # phase_shift.print_everything()
-    # print(counter)
+                # exit()
 
 
 if __name__ == "__main__":
