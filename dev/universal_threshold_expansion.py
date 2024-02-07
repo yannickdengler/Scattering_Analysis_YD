@@ -163,12 +163,10 @@ def plot_P_cot_PS(file, order = 2, color = "grey", xaxis = "P", fit = True, scat
         plt.plot(xaxis_fit,fit_data[1], color = color)
         plt.fill_between(x=xaxis_fit,y1=fit_data[2],y2=fit_data[3], color = color, alpha = 0.1)
 
-
-
     if save:
-        plt.savefig("plots/P_cot_PS_vs_%s_b%1.3f_m%1.3f_o%i.pdf"%(xaxis,beta,m,order))
         plt.title("beta = %1.3f, m1/2 = %1.3f, order = %i"%(beta, m, order))
         plt.grid()
+        plt.savefig("plots/P_cot_PS_vs_%s_b%1.3f_m%1.3f_o%i.pdf"%(xaxis,beta,m,order))
     if show:
         plt.show()
     if save or show:

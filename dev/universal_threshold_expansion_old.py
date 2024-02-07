@@ -467,7 +467,6 @@ def plot_one_sigma_v_vs_v(file, color, order = 2, massscale = 0):
     plt.plot(v_mean_arr, sigma_v_arr, color = color, label = "b%1.3f m%1.3f"%(data["beta"], data["m"]))
     plt.fill_between(v_mean_arr, sigma_v_arr_m, sigma_v_arr_p, color = color, alpha = 0.1)
 
-
 def plot_all_sigma_v(filenames, orders, massscale = 0):
     for i, file in zip(range(len(filenames)), filenames):
         plot_one_sigma_v_vs_v(file, color = color_arr[i], order = orders[i], massscale=massscale)
@@ -515,9 +514,9 @@ def main_plot():
     all_order = [0,2,4,6]
     # orders_alt = [2,0,0,0,2,2,2,2,2,0,0,0]    
     # "phase_shift_fit_P_cot_PS_SU(3)_beta5.400_m1-0.890_lim_0.9"
-    # for i in range(len(filenames)):
-    #     for j in range(len(all_order)):
-    #         plot_one_P_cot_fit(filenames[i], order = all_order[j], color = color_arr[i], show_safe=True)
+    for i in range(len(filenames)):
+        for j in range(len(all_order)):
+            plot_one_P_cot_fit(filenames[i], order = all_order[j], color = color_arr[i], show_safe=True)
     # for i, file in zip(range(len(filenames)), filenames):
     #     plot_one_P_cot_fit(file, order = orders[i], color = color_arr[i], show_safe=True)
     # plot_all_P_cot(filenames, orders)
@@ -525,7 +524,7 @@ def main_plot():
     # plot_all_sigma(filenames = filenames, orders = orders, xaxis="v")
     # plot_all_sigma(filenames = filenames, orders = orders, xaxis="s")
     # plot_all_integrands(filenames = filenames, orders = orders)
-    plot_all_sigma_v(filenames = filenames, orders = orders, massscale=0)
+    # plot_all_sigma_v(filenames = filenames, orders = orders, massscale=0)
     # plot_all_sigma_v(filenames = filenames, orders = orders, massscale=1)
     # plot_all_sigma_v(filenames = filenames, orders = orders, massscale=10)
     # plot_all_sigma_v(filenames = filenames, orders = orders, massscale=100)

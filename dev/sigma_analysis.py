@@ -9,6 +9,7 @@ import os
 import universal_threshold_expansion as UTE
 from scipy.special import kn                                # modified Bessel function
 from scipy.optimize import bisect
+# import mpl_toolkits.mplot3d.axes3d as axes3d
 
 lightspeed = 299792.458
 color_arr = ["blue", "green", "red", "purple", "orange", "olive", "skyblue", "lime", "black", "grey", "fuchsia", "peru", "firebrick","blue", "green", "red", "purple", "orange", "olive", "skyblue", "lime", "black", "grey", "fuchsia", "peru", "firebrick","blue", "green", "red", "purple", "orange", "olive", "skyblue", "lime", "black", "grey", "fuchsia", "peru", "firebrick",]
@@ -117,7 +118,7 @@ def calc_M2_sigma_intfunc(file, order, num_P = 1000, vmean_arr = [0.1,0.5,0.9,0.
     if update:
         for key, val in read_hdf5_file(file+"_sigma_analysis").items():
             results[key] = val
-    P_cot_data, coeffs_sample, mass_Goldstone, beta, m = UTE.get_data_from_file(file=file, order=order)
+    P_cot_data, coeffs_sample, mass_Goldstone, beta, m, N_Ls = UTE.get_data_from_file(file=file, order=order)
     func_mean, func_m, func_p = UTE.get_functions_from_file(file, order)
     # P_2_arr = np.linspace(0, 2*max(P_cot_data[0]), num_P)
     P_2_arr = np.linspace(0, 9, num_P)
@@ -246,6 +247,12 @@ def plot_all_sigma_v(massscale = 0, xaxis = "v_mean"):
         plt.scatter(HALOdata[0], HALOdata[1], color = "grey", label = "Halo data")
         plt.xlabel("$<v>$ in km/s")
         plt.ylabel("$<\sigma v>$/m in cm^2/g km/s")
+        v_arr = np.logspace(np.log10(lightspeed)-6,np.log10(lightspeed), 20)
+        # print(v_arr)
+        for i in range(20):
+            cross_section_mass = 10**(i-16)
+            # print("hey")
+            plt.plot(v_arr,cross_section_mass*v_arr, color = "grey", ls = "--")
     # plt.legend()
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     # plt.savefig("plots/sigma_v_vmean_mDM_%i.pdf"%int(massscale), bbox_inches = "tight")
@@ -339,9 +346,27 @@ def plot_sigma_v_dist_intfunc(x_axis="v"):
             plt.show()
             plt.clf()
 
-def a_0_m_pi_vs_L()
+# def a_0_m_pi_vs_L(a_0s, N_Ls, betas, ms):
+#     filenames = ["phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.920_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.905_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.890_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.910_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.780_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.850_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.794_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.835_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.900_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.870_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.750_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.800_lim_0.9"]
+#     orders = [2,0,0,2,2,4,2,2,4,0,0,0]
+#     for i, filename in zip(range(len(filenames)), filenames):
+#         data = read_hdf5_file(filename+"_sigma_analysis")
+#         P_cot_data, coeffs_sample, mass_Goldstone, beta, m, N_Ls = UTE.get_data_from_file(file=filename, order=orders[i])
+#         num = len(coeffs_sample[0])
+#         percentage_std = 0.682689
+#         low_ind = math.ceil(num*(1-percentage_std)/2)
+#         high_ind = math.floor(num*(1+percentage_std)/2)
+#         coeffs_mean = np.transpose(coeffs_sample)[num//2]
+#         coeffs_m = np.transpose(coeffs_sample)[low_ind]
+#         coeffs_p = np.transpose(coeffs_sample)[high_ind]
+#         print(coeffs_mean, coeffs_m, coeffs_p)
+#         a_0 = [1/coeffs_mean[0],(1/coeffs_mean[0]-1/coeffs_p[0]),(1/coeffs_mean[0]-1/coeffs_m[0])]
+#         plt.errorbar(x=N_Ls[i], y=a_0s[i][0], yerr=[a_0s[i][1], a_0s[i][2]], color = color_arr[i], ls = "", capsize=5, markersize=10, label = "b%1.3f, m%1.3f"%(betas[i],ms[i]))
+#     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+#     plt.savefig("plots/a_0s_vs_L.pdf", bbox_inches = "tight")
+#     plt.show()
 
-def extra_plots():
+def a_b_heatmap():
     filenames = ["phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.920_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.905_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.890_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.910_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.780_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.850_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.794_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.835_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.900_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.870_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.750_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.800_lim_0.9"]
     orders = [2,0,0,2,2,4,2,2,4,0,0,0]
     for i, filename in zip(range(len(filenames)), filenames):
@@ -355,11 +380,104 @@ def extra_plots():
         coeffs_m = np.transpose(coeffs_sample)[low_ind]
         coeffs_p = np.transpose(coeffs_sample)[high_ind]
         print(coeffs_mean, coeffs_m, coeffs_p)
-        
+        if len(coeffs_mean) == 1:
+            plt.errorbar(x=coeffs_mean, y=0, xerr=[abs(coeffs_mean-coeffs_m),abs(coeffs_mean-coeffs_p)], color = color_arr[i], ls = "", capsize=5, markersize=10, label = "b%1.3f, m%1.3f"%(beta,m))
+        else:
+            plt.errorbar(x=coeffs_mean[0], y=coeffs_mean[1], xerr=[[abs(coeffs_mean[0]-coeffs_m[0]),],[abs(coeffs_mean[0]-coeffs_p[0]),]], yerr=[[abs(coeffs_mean[1]-coeffs_m[1]),],[abs(coeffs_mean[1]-coeffs_p[1]),]], color = color_arr[i], ls = "", capsize=5, markersize=10, label = "b%1.3f, m%1.3f"%(beta,m))
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    plt.grid()
+    plt.xlabel("a")
+    plt.ylabel("b")
+    plt.savefig("plots/a_b_heatmap.pdf", bbox_inches="tight")
+    plt.xlim([-6,1])
+    plt.ylim([-2,12])
+    plt.savefig("plots/a_b_heatmap_zoom.pdf", bbox_inches="tight")
+    plt.show()
+
+def re_b_prime(b_prime, m):
+    return 2*b_prime/m
+def a_a_prime(a_prime, m):
+    return -1/(a_prime*m)
+
+def a_b_heatmap_advanced():
+    filenames = ["phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.920_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.905_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.890_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.910_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.780_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.850_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.794_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.835_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.900_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.870_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.750_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.800_lim_0.9"]
+    mass_arr = np.linspace(0,25, 100)
+    a_arr = []
+    re_arr = []
+    orders = [2,0,0,2,2,4,2,2,4,0,0,0]
+    betas = []
+    ms = []
+    for i, filename in zip(range(len(filenames)), filenames):
+        a_arr.append([])
+        re_arr.append([])
+        data = read_hdf5_file(filename+"_sigma_analysis")
+        P_cot_data, coeffs_sample, mass_Goldstone, beta, m, N_Ls = UTE.get_data_from_file(file=filename, order=orders[i])
+        betas.append(beta)
+        ms.append(m)
+        num = len(coeffs_sample[0])
+        percentage_std = 0.682689
+        low_ind = math.ceil(num*(1-percentage_std)/2)
+        high_ind = math.floor(num*(1+percentage_std)/2)
+        coeffs_mean = np.transpose(coeffs_sample)[num//2]
+        # coeffs_m = np.transpose(coeffs_sample)[low_ind]
+        # coeffs_p = np.transpose(coeffs_sample)[high_ind]
+        MeVfm = 197.3
+        for j in range(len(mass_arr)):
+            if len(coeffs_mean) == 1:
+                # a_arr[i].append(a_a_prime(coeffs_mean, mass_arr[j])*MeVfm)
+                a_arr[i].append(a_a_prime(coeffs_mean, mass_arr[j])*1000*MeVfm)
+                re_arr[i].append(0)
+            else:
+                # a_arr[i].append(a_a_prime(coeffs_mean[0], mass_arr[j])*MeVfm)
+                # re_arr[i].append(re_b_prime(coeffs_mean[1],mass_arr[j])*MeVfm)
+                a_arr[i].append(a_a_prime(coeffs_mean[0], mass_arr[j])*1000*MeVfm)
+                re_arr[i].append(re_b_prime(coeffs_mean[1],mass_arr[j])*1000*MeVfm)
+    fig, axs = plt.subplots(nrows=2, ncols=2)
+    axs[0,1].axis("off")
+    axs[0,0].grid()
+    axs[0,1].grid()
+    axs[1,0].grid()
+    axs[1,1].grid()
+    # axs[0,0].set_xlabel("")
+    axs[0,0].set_ylabel("$r_e$ [fm]")
+    axs[1,0].set_xlabel("a [fm]")
+    axs[1,0].set_ylabel("$m_{DM}$ [GeV]")
+    axs[1,1].set_xlabel("$r_e$ [fm]")
+    # axs[1,1].set_ylabel([0,25])
+    for i in range(len(a_arr)):
+        axs[0,0].plot(a_arr[i], re_arr[i], color = color_arr[i], label = "b%1.3f, m%1.3f"%(betas[i], ms[i]))
+        axs[1,0].plot(a_arr[i], mass_arr, color = color_arr[i])
+        axs[1,1].plot(re_arr[i], mass_arr, color = color_arr[i])
+    axs[0,0].legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol = 2)
+
+    plt.savefig("plots/a_b_heatmap.pdf", bbox_inches = "tight")
+    axs[0,0].set_xscale('log')
+    axs[0,0].set_yscale('log')
+    axs[1,0].set_xscale('log')
+    axs[1,0].set_yscale('log')
+    axs[1,1].set_xscale('log')
+    axs[1,1].set_yscale('log')
+    plt.savefig("plots/a_b_heatmap_log.pdf", bbox_inches = "tight")
+    axs[0,0].set_xscale('linear')
+    axs[0,0].set_yscale('linear')
+    axs[1,0].set_xscale('linear')
+    axs[1,0].set_yscale('linear')
+    axs[1,1].set_xscale('linear')
+    axs[1,1].set_yscale('linear')
+    axs[0,0].set_xlim([0,40])
+    axs[0,0].set_ylim([-100,100])
+    axs[1,0].set_xlim([0,40])
+    axs[1,0].set_ylim([0,25])
+    axs[1,1].set_xlim([-100,100])
+    axs[1,1].set_ylim([0,25])
+    plt.savefig("plots/a_b_heatmap_zoom.pdf", bbox_inches = "tight")
+
+    # plt.show()
 
 
 def main_plot():
-    plot_all_sigma_v(massscale=10)
+    a_b_heatmap_advanced()
+    # plot_all_sigma_v(massscale=10)
     # plot_M_2()
     # plot_sigma()
     # plot_M_2(x_axis="s")
@@ -374,6 +492,6 @@ def main_plot():
 
 if __name__ == "__main__":
     # main_calc()
-    # main_plot()
-    extra_plots()
+    main_plot()
+    # extra_plots()
 
