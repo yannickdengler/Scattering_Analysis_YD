@@ -139,11 +139,24 @@ def main_Fabian():
                 # phase_shift.print_everything()
                 # exit()
 
+def print_phase_shift():
+    filelist = np.genfromtxt("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_all", "str")
+    print(filelist)
+    for file in filelist:
+        # print(file)
+        inf_vol = errcl.measurement(file)
+        inf_vol.read_from_HDF()
+        print(file,inf_vol.infos["beta"],inf_vol.infos["m_1"],inf_vol.infos["N_mont"])
+        # print(file, "\t\t\t", inf_vol.infos["N_mont"])
+        # inf_vol.print_everything()
+
+
 
 if __name__ == "__main__":
     # create_all_filenames()
     # main()
-    main_Fabian()
+    # main_Fabian()
+    print_phase_shift()
 
 
 

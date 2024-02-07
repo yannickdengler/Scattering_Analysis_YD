@@ -3,48 +3,33 @@ import error_classes as errcl
 import numpy as np
 import scipy.integrate as scpint
 import math
+import h5py
 
 lightspeed = 299792.458
 color_arr = ["blue", "green", "red", "purple", "orange", "olive", "skyblue", "lime", "black", "grey", "fuchsia", "peru", "firebrick","blue", "green", "red", "purple", "orange", "olive", "skyblue", "lime", "black", "grey", "fuchsia", "peru", "firebrick","blue", "green", "red", "purple", "orange", "olive", "skyblue", "lime", "black", "grey", "fuchsia", "peru", "firebrick",]
 
-def get_data_from_file(file, order=2):
+def get_data_from_file(beta, m_1, limit = 0.9, order=2):
     coeff_strs = ["a", "b", "c", "d", "e"]
-    fit_phase_shift = errcl.measurement(file)
-    fit_phase_shift.read_from_HDF()
     P_cot_data = []
     coeffs = []
     coeffs_p = []
     coeffs_m = []
-
-    beta = fit_phase_shift.infos["beta"]
-    m = fit_phase_shift.infos["m_1"]
-    P_cot_data.append(fit_phase_shift.results["P_2_prime"].median)
-    P_cot_data.append(fit_phase_shift.results["P_2_prime"].e)
-    P_cot_data.append(fit_phase_shift.results["P_cot_PS_prime"].median)
-    P_cot_data.append(fit_phase_shift.results["P_cot_PS_prime"].e)
-    if "a"+str(order) in fit_phase_shift.result_names:
+    with h5py.File("/home/dengler_yannick/Documents/Scattering_Analysis_YD/output/phase_shift_fit_results/phase_shift_fit_results_b%1.3f_m%1.3f_lim%1.3f"%(beta,m_1, limit),"r") as f:
+        P_2_median, P_2_ep, P_2_em, P_cot_PS_median, P_cot_PS_ep, P_cot_PS_em = f["plot_data"][:]
+        P_cot_data.append(P_2_median)
+        P_cot_data.append(P_2_ep)
+        P_cot_data.append(P_cot_PS_median)
+        P_cot_data.append(P_cot_PS_ep)
+        coeffs = []
+        coeffs_p = []
+        coeffs_m = []
         for i in range(1+order//2):
-            coeffs.append(fit_phase_shift.results[coeff_strs[i]+str(order)].median[0])
-            # coeffs_p.append(fit_phase_shift.results[coeff_strs[i]+str(order)].median_p[0])
-            # coeffs_m.append(fit_phase_shift.results[coeff_strs[i]+str(order)].median_m[0])
-    else:
-        return None
-    val_coeffs_arr = []
-    val_coeffs_arr.append(np.transpose(fit_phase_shift.results["integral"+str(order)].sample)[0])
-    for i in range(1+order//2):
-        val_coeffs_arr.append(np.transpose(fit_phase_shift.results[coeff_strs[i]+str(order)].sample)[0])
-    for i in range(1,len(val_coeffs_arr)):
-        val_coeffs_arr[i] = [x for _, x in sorted(zip(val_coeffs_arr[0],val_coeffs_arr[i]))]
-    val_coeffs_arr[0] = sorted(val_coeffs_arr[0])
-    num = len(val_coeffs_arr[0])
-    percentage_std = 0.682689
-    low_ind = math.ceil(num*(1-percentage_std)/2)
-    high_ind = math.floor(num*(1+percentage_std)/2)
-    for i in range(1,len(val_coeffs_arr)):
-        coeffs_p.append(val_coeffs_arr[i][high_ind])
-        coeffs_m.append(val_coeffs_arr[i][low_ind])
-
-    mass_Goldstone = fit_phase_shift.results["mass_Goldstone"].median[0]
+            coeffs.append(float(f[coeff_strs[i]+str(order)+"_mean"][:]))
+            coeffs_p.append(float(f[coeff_strs[i]+str(order)+"_p"][:]))
+            coeffs_m.append(float(f[coeff_strs[i]+str(order)+"_m"][:]))
+        mass_Goldstone = float(f["mass_Goldstone_median"][:])
+        beta = float(f["beta"][:])
+        m = float(f["m_1"][:])
 
     return P_cot_data, coeffs, coeffs_p, coeffs_m, mass_Goldstone, beta, m
 
@@ -66,10 +51,25 @@ def get_data_from_file(file, order=2):
 #     if "a"+str(order) in fit_phase_shift.result_names:
 #         for i in range(1+order//2):
 #             coeffs.append(fit_phase_shift.results[coeff_strs[i]+str(order)].median[0])
-#             coeffs_p.append(fit_phase_shift.results[coeff_strs[i]+str(order)].median_p[0])
-#             coeffs_m.append(fit_phase_shift.results[coeff_strs[i]+str(order)].median_m[0])
+#             # coeffs_p.append(fit_phase_shift.results[coeff_strs[i]+str(order)].median_p[0])
+#             # coeffs_m.append(fit_phase_shift.results[coeff_strs[i]+str(order)].median_m[0])
 #     else:
 #         return None
+#     val_coeffs_arr = []
+#     val_coeffs_arr.append(np.transpose(fit_phase_shift.results["integral"+str(order)].sample)[0])
+#     for i in range(1+order//2):
+#         val_coeffs_arr.append(np.transpose(fit_phase_shift.results[coeff_strs[i]+str(order)].sample)[0])
+#     for i in range(1,len(val_coeffs_arr)):
+#         val_coeffs_arr[i] = [x for _, x in sorted(zip(val_coeffs_arr[0],val_coeffs_arr[i]))]
+#     val_coeffs_arr[0] = sorted(val_coeffs_arr[0])
+#     num = len(val_coeffs_arr[0])
+#     percentage_std = 0.682689
+#     low_ind = math.ceil(num*(1-percentage_std)/2)
+#     high_ind = math.floor(num*(1+percentage_std)/2)
+#     for i in range(1,len(val_coeffs_arr)):
+#         coeffs_p.append(val_coeffs_arr[i][high_ind])
+#         coeffs_m.append(val_coeffs_arr[i][low_ind])
+
 #     mass_Goldstone = fit_phase_shift.results["mass_Goldstone"].median[0]
 
 #     return P_cot_data, coeffs, coeffs_p, coeffs_m, mass_Goldstone, beta, m
@@ -91,8 +91,6 @@ def P_cot_delta_min_max(P, coeffs_min, coeffs_max, min_max = "max"):
         return P_cot_delta(P, coeffs_max)
     elif min_max == "min":
         return P_cot_delta(P, coeffs_min)
-
-
 
     # results = np.zeros(2**len(coeffs_min))
     # for i in range(len(coeffs_min)):
@@ -130,7 +128,13 @@ def plot_P_cot_fit(coeffs, coeffs_min, coeffs_max, color):
     plt.fill_between(x=P2arr, y1=P_cot_arr_m, y2=P_cot_arr_p, alpha = 0.3, color = color)
 
 def plot_one_P_cot(filename, color, order):
-    input_data = get_data_from_file(filename, order)
+    beta = float(filename[35:40])
+    m_1 = float(filename[43:49])
+    # print(beta)
+    # print(m_1)
+    # exit()
+    input_data = get_data_from_file(beta, m_1, limit = 0.9, order=order)
+    # input_data = get_data_from_file(filename, order)
     if input_data != None:
         data, coeffs, coeffs_p, coeffs_m, mass_Goldstone, beta, m = input_data
         plot_P_cot_data(data, color, "b69m09")
@@ -148,7 +152,7 @@ def plot_one_P_cot(filename, color, order):
 def plot_all_P_cot():
     filenames = ["phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.920_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.905_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.890_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.910_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.780_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.850_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.794_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.835_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.900_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.870_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.750_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.800_lim_0.9"]
     orders     = [2,0,0,2,2,4,2,2,4,0,0,0]
-    # orders_alt = [2,0,0,0,2,2,2,2,2,0,0,0]    
+    # orders_alt = [2,0,0,0,2,2,2,2,2,0,0,0]
     # "phase_shift_fit_P_cot_PS_SU(3)_beta5.400_m1-0.890_lim_0.9"
     for i, file in zip(range(len(filenames)), filenames):
         plot_one_P_cot(file, color = color_arr[i], order = orders[i])
@@ -363,12 +367,12 @@ def main():
     #     print()
     plot_all_P_cot()
     # plot_all_sigma(xaxis="P")
-    # plot_all_sigma(xaxis="v")
+    plot_all_sigma(xaxis="v")
     # plot_all_sigma(xaxis="s")
     # plot_all_integrands()
     # plot_all_sigma_v(10)
     # plot_all_sigma_v(1000)
-    # plot_all_sigma_v(100)
+    plot_all_sigma_v(100)
 
     # filenames = ["phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.920_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.905_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.890_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.910_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.780_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.850_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.794_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.835_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.900_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.870_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.750_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.800_lim_0.9"]
     # orders     = [2,0,0,2,2,4,2,2,4,0,0,0]

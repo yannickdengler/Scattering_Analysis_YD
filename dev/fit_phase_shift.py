@@ -158,6 +158,7 @@ def fit_p_cot_PS(filelist, limit = 0, levels = [0,]):
     P_cot_PS = []
     P_2 = []
     filenames = []
+    N_Ls = []
     bm_str = filelist[0][41:65]
     for resultfile in filelist:
         if int(resultfile[25]) in levels:
@@ -166,8 +167,7 @@ def fit_p_cot_PS(filelist, limit = 0, levels = [0,]):
                 phase_shift.read_from_HDF()
                 if phase_shift.results["P_2_prime"].median[0] < limit or limit == 0:
                     infos = phase_shift.infos
-                    infos["levels_fit"] = levels
-                    infos["limit_fit"] = limit
+                    N_Ls.append(phase_shift.results["N_L"].median[0])
                     P_cot_PS_tmp = np.swapaxes(phase_shift.results["P_cot_PS_prime"].sample,0,1)[0]                             # check if you want prime or not
                     P_2_tmp = np.swapaxes(phase_shift.results["P_2_prime"].sample,0,1)[0]
                     if not(any(np.isnan(P_cot_PS_tmp)) or any(np.isinf(P_cot_PS_tmp)) or any(np.isnan(P_2_tmp)) or any(np.isinf(P_2_tmp))):
@@ -176,6 +176,10 @@ def fit_p_cot_PS(filelist, limit = 0, levels = [0,]):
                         P_2.append(np.swapaxes(phase_shift.results["P_2_prime"].sample,0,1)[0])
                     else:
                         print("Nans of infs in: "+resultfile)
+                    infos["levels_fit"] = levels
+                    infos["limit_fit"] = limit
+    infos["N_Ls"] = N_Ls
+    infos["filenames"] = filenames
         
     if len(P_cot_PS) > 1:
         data = np.zeros((2*len(filenames), len(P_cot_PS[0])))
@@ -214,7 +218,7 @@ def fit_p_cot_PS(filelist, limit = 0, levels = [0,]):
 
 
         phase_shift_fit.print_to_HDF()
-        # phase_shift_fit.print_everything()
+        phase_shift_fit.print_everything()
 
 def main():
     with open("/home/dengler_yannick/Documents/Scattering_Analysis_YD/input/filenames_phase_shift_fit", "r") as f:
