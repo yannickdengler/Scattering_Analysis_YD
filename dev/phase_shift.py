@@ -64,6 +64,8 @@ def calc_phase_shift(data, args):
     result["Zeta"] = np.asarray((Zeta,))
     result["M"] = np.asarray((M,))
     result["M_2"] = np.asarray((M*M,))
+    result["sigma"] = np.asarray((4*np.pi/(mass_Goldstone**2*((P/(tan_PS*mass_Goldstone))**2+1)),))
+    result["sigma_prime"] = np.asarray((4*np.pi/((P/(tan_PS*mass_Goldstone))**2+1),))
     # result["sigma"] = M**2/(16*np.pi*E_pipi**2)
     # result["sigma_prime"] = M**2*mass_Goldstone**2/(16*np.pi*E_pipi**2)
     # result["velocity"] = P/np.sqrt(mass_Goldstone**2+P**2)
@@ -155,8 +157,11 @@ def print_phase_shift():
 if __name__ == "__main__":
     # create_all_filenames()
     # main()
-    # main_Fabian()
-    print_phase_shift()
+    main_Fabian()
+    # print_phase_shift()
+
+    # result["sigma"] = np.asarray((4*np.pi**2*N_L**2/(4*Zeta**2+np.pi*P**2*N_L**2)))
+    # result["sigma_prime"] = np.asarray((4*np.pi**2*N_L**2*mass_Goldstone**2/(4*Zeta**2+np.pi*P**2*N_L**2)))
 
 
 

@@ -51,7 +51,19 @@ def sigma_of_P(P, P_cot_PS):
     # return M2_of_P(P, P_cot_PS)/(16*np.pi*E**2)
 
 def MB_dist(v, vmean):
-    return 32*v**2*np.exp(-4*v**2/(np.pi*vmean**2))/(np.pi**2*vmean**3)
+    return 32*v**2*np.exp(-4*v**2/(np.pi*vmean**2))/(np.pi**2*vmean**3)                                     # 3-dim
+    # return 2*np.exp(-v**2/(np.pi*vmean**2))/(np.pi*vmean)                                     # 1-dim
+
+# xarr = np.logspace(-5,0)
+# yarr = []
+# for i in range(5):
+#     yarr.append([])
+#     for j in range(len(xarr)):
+#         yarr[i].append(MB_dist(xarr[j], 0.1+i/5.))
+#     plt.plot(xarr,yarr[i])
+# plt.xscale("log")
+# plt.show()
+# exit()
 
 def zero_func_vmean_MJ(theta, vmean):
     return 2*theta*(theta+1)*np.exp(-1/theta)/kn(2,1/theta) - vmean
@@ -187,16 +199,15 @@ def calc_sigma_v(file, order, num_v = 1000):
 
 def calc(file, order):
     results = {}
-    # for key, val in calc_distribtions().items():
-    #     results[key] = val
-    for key, val in calc_M2_sigma_intfunc(file, order).items():
+    for key, val in calc_distribtions().items():
         results[key] = val
-    # for key, val in calc_sigma_v(file, order).items():
-    #     results[key] = val
-    # print(results)
+    for key, val in calc_M2_sigma_intfunc(file, order, update=False).items():
+        results[key] = val
+    for key, val in calc_sigma_v(file, order).items():
+        results[key] = val
+    print(results)
     create_hdf5_file(file+"_sigma_analysis", results)
     print(read_hdf5_file(file+"_sigma_analysis"))
-
 
 def main_calc():
     filenames = ["phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.920_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.905_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.890_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.910_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.780_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.850_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.794_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.835_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.900_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.870_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.750_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.800_lim_0.9"]
@@ -368,7 +379,8 @@ def plot_sigma_v_dist_intfunc(x_axis="v"):
 
 def a_b_heatmap():
     filenames = ["phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.920_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.905_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.890_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.910_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.780_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.850_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.794_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.835_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.900_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta6.900_m1-0.870_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.200_m1-0.750_lim_0.9", "phase_shift_fit_P_cot_PS_SP(4)_beta7.050_m1-0.800_lim_0.9"]
-    orders = [2,0,0,2,2,4,2,2,4,0,0,0]
+    # orders = [2,0,0,2,2,4,2,2,4,0,0,0]
+    orders = [2,0,0,2,2,2,2,2,2,0,0,0]                                      # just for checking-
     for i, filename in zip(range(len(filenames)), filenames):
         data = read_hdf5_file(filename+"_sigma_analysis")
         P_cot_data, coeffs_sample, mass_Goldstone, beta, m, N_Ls = UTE.get_data_from_file(file=filename, order=orders[i])
@@ -379,7 +391,7 @@ def a_b_heatmap():
         coeffs_mean = np.transpose(coeffs_sample)[num//2]
         coeffs_m = np.transpose(coeffs_sample)[low_ind]
         coeffs_p = np.transpose(coeffs_sample)[high_ind]
-        print(coeffs_mean, coeffs_m, coeffs_p)
+        print(beta, m, mass_Goldstone, coeffs_mean, coeffs_m, coeffs_p)
         if len(coeffs_mean) == 1:
             plt.errorbar(x=coeffs_mean, y=0, xerr=[abs(coeffs_mean-coeffs_m),abs(coeffs_mean-coeffs_p)], color = color_arr[i], ls = "", capsize=5, markersize=10, label = "b%1.3f, m%1.3f"%(beta,m))
         else:
@@ -450,14 +462,14 @@ def a_b_heatmap_advanced():
         axs[1,1].plot(re_arr[i], mass_arr, color = color_arr[i])
     axs[0,0].legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol = 2)
 
-    plt.savefig("plots/a_b_heatmap.pdf", bbox_inches = "tight")
+    plt.savefig("plots/a_b_heatmap_adv.pdf", bbox_inches = "tight")
     axs[0,0].set_xscale('log')
     axs[0,0].set_yscale('log')
     axs[1,0].set_xscale('log')
     axs[1,0].set_yscale('log')
     axs[1,1].set_xscale('log')
     axs[1,1].set_yscale('log')
-    plt.savefig("plots/a_b_heatmap_log.pdf", bbox_inches = "tight")
+    plt.savefig("plots/a_b_heatmap_adv_log.pdf", bbox_inches = "tight")
     axs[0,0].set_xscale('linear')
     axs[0,0].set_yscale('linear')
     axs[1,0].set_xscale('linear')
@@ -470,13 +482,14 @@ def a_b_heatmap_advanced():
     axs[1,0].set_ylim([0,25])
     axs[1,1].set_xlim([-100,100])
     axs[1,1].set_ylim([0,25])
-    plt.savefig("plots/a_b_heatmap_zoom.pdf", bbox_inches = "tight")
+    plt.savefig("plots/a_b_heatmap_adv_zoom.pdf", bbox_inches = "tight")
 
     # plt.show()
 
 
 def main_plot():
-    a_b_heatmap_advanced()
+    a_b_heatmap()
+    # a_b_heatmap_advanced()
     # plot_all_sigma_v(massscale=10)
     # plot_M_2()
     # plot_sigma()

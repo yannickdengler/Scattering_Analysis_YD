@@ -100,6 +100,10 @@ def fit_func_PS_s(s, a, b):
 # def fit_func_p4(P2, a, b, c):
 #     return a + b*P2 + c*P2*P2
 
+def fit_func_sigma(P2, a, b):
+    # P2 = s-4
+    return 4*np.pi/(a**2+P2+2*a*b*P2+b**2*P2**2)
+
 def fit_P_cot_PS(filelist, x, y, error, color = "red"):
     bm_str = filelist[0][41:65]
     meas = errcl.measurement("phase_shift_fit_P_cot_PS_"+bm_str)
@@ -199,6 +203,8 @@ def plot_a_0_vs_m_f_pi(squared):
             plt.errorbar(x=data[i][5],xerr=data[i][6], y=[data[i][0],],yerr=[[data[i][1],],[data[i][2],]], marker = marker_beta(data[i][7]), ls = "", capsize=5, markersize=10, color = color_beta(data[i][7]))
         else:
             plt.errorbar(x=data[i][3],xerr=data[i][4], y=[data[i][0],],yerr=[[data[i][1],],[data[i][2],]], marker = marker_beta(data[i][7]), ls = "", capsize=5, markersize=10, color = color_beta(data[i][7]))
+        # plt.text(x=mpifpi_err[0], y=a0mpi_err[0], s="b%1.3f m%1.3f\nnum=%i"%(beta_arr[i][j],m_arr[i][j], len(res["N_Ls"])), fontdict={"fontsize": 6})
+   
     plt.fill_between(x=(-100,100), y1=(-0.43381100719774743,-0.43381100719774743), y2=(-0.9218134335278696,-0.9218134335278696), color = "grey", alpha = 0.25)
     plt.axhline(-0.6444469758057019, color = "grey", alpha = 0.5)
 
@@ -465,6 +471,87 @@ def plot_P_cot_PS():
     plt.savefig("plots/P_cot_all_fit.pdf", bbox_inches="tight")
     plt.show()
 
+def plot_sigma_s():
+    sigma = []
+    sigma_p = []
+    sigma_m = []
+    a2 = []
+    b2 = []
+    s = []
+    s_p = []
+    s_m = []
+    m_pi_rho_arr = []
+    beta_arr = []
+    m_arr = []
+    all_meas = errcl.measurement("all_SP4")
+    all_meas.read_from_HDF()
+
+    for result_name in all_meas.result_names:
+        search_str0 = "phase_shift_Fabian_level_0_Scattering_I2_SP(4)"
+        search_str1 = "phase_shift_Fabian_level_1_Scattering_I2_SP(4)"
+        # print(result_name)
+        if result_name[:len(search_str0)] == search_str0 or result_name[:len(search_str1)] == search_str1:
+            search_str = "sigma_prime"
+            if result_name[len(result_name)-len(search_str):] == search_str:
+                # if all_meas.infos[info_str+"beta"] == 6.9 and all_meas.infos[info_str+"m_1"] == -0.9:
+                info_str = result_name[:len(result_name)-len(search_str)]
+                sigma.append(all_meas.results[result_name].median)
+                sigma_p.append(all_meas.results[result_name].ep)
+                sigma_m.append(all_meas.results[result_name].em)
+                s.append(all_meas.results[result_name[:len(result_name)-len(search_str)]+"P_2_prime"].median)
+                s_p.append(all_meas.results[result_name[:len(result_name)-len(search_str)]+"P_2_prime"].ep)
+                s_m.append(all_meas.results[result_name[:len(result_name)-len(search_str)]+"P_2_prime"].em)
+                beta = all_meas.infos[info_str+"beta"]
+                beta_arr.append(beta)
+                m = all_meas.infos[info_str+"m_1"]
+                m_arr.append(m)
+                m_pi_rho = all_meas.results["infinite_volume_Fabian_level_0_Scattering_I2_SP(4)_beta%1.3f_m1%1.3f_m2%1.3f_pi/m_pi_rho"%(beta,m,m)].median[0]
+                m_pi_rho_arr.append(m_pi_rho)
+                # print("beta = %1.3f, m = %1.3f, m_pi_rho = %1.3f"%(beta, m, m_pi_rho))
+        search_str = "phase_shift_fit_P_cot_PS_SP(4)"
+        if result_name[:len(search_str)] == search_str:
+            search_str = "a2"
+            if result_name[len(result_name)-len(search_str):] == search_str:
+                info_str = result_name[:len(result_name)-len(search_str)]
+                a2.append(all_meas.results[result_name].median)
+                b2.append(all_meas.results[result_name[:len(result_name)-len(search_str)]+"b2"].median)
+
+
+    norm = matplotlib.colors.Normalize(vmin=min(m_pi_rho_arr), vmax=max(m_pi_rho_arr), clip=True)
+    mapper = cm.ScalarMappable(norm=norm, cmap='viridis')
+    time_color = np.array([(mapper.to_rgba(v)) for v in m_pi_rho_arr])
+    plt.colorbar(mappable=mapper, label = "$\\frac{m_\pi}{m_\\rho}$")
+    beta_used = []
+    for i in range(len(s)):
+        plt.errorbar(x=s[i], xerr=[s_m[i],s_p[i]], y=sigma[i], yerr=[sigma_m[i],sigma_p[i]], marker = marker_beta(beta_arr[i]), color = time_color[i], capsize=5, markersize=10)
+
+
+    plt.scatter((-10, -9), y = (0,0), marker = marker_beta(6.9), color = "grey", label ="$\\beta=6.90$", s = 60)
+    plt.scatter((-10, -9), y = (0,0), marker = marker_beta(7.05), color = "grey", label ="$\\beta=7.05$", s = 60)
+    plt.scatter((-10, -9), y = (0,0), marker = marker_beta(7.2), color = "grey", label ="$\\beta=7.20$", s = 60)
+
+    x_low, x_high = [0,4]
+    # plt.xlim([x_low,x_high])
+    plt.ylim([0,20])
+
+
+    plt.xscale("log")
+    plt.legend()
+    plt.xlabel("$\\frac{s}{m_\pi^2}$")
+    plt.ylabel("$\\sigma m_\pi^2$")
+    plt.grid()
+    plt.savefig("plots/sigma_s_all.pdf", bbox_inches="tight")
+    xarr = np.linspace(x_low, x_high, 1000)
+    for i in range(len(a2)):
+        yfitarr = []
+        for j in range(len(xarr)):
+            # print(xarr[j],a2[i][0],b2[i][0])
+            yfitarr.append(fit_func_sigma(xarr[j],a2[i][0],b2[i][0]))
+        print(yfitarr)
+        plt.plot(xarr, yfitarr, color = "maroon", lw = 0.5, alpha = 0.8)#, ls = "dashed")
+    plt.savefig("plots/sigma_s_all_fit.pdf", bbox_inches="tight")
+    plt.show()
+
 def plot_tan_PS():
     plt.figure(figsize=(8,4.8))
     P_cot_PS = []
@@ -700,10 +787,11 @@ def main():
     # plot_a_0_vs_m_pi_m_rho()
     # plot_tan_PS()
     # plot_P_cot_PS()
+    # plot_sigma_s()
     # plot_PS()
     # plot_energy_levels()
     plot_a_0_vs_m_f_pi(squared = False)
-    plot_a_0_vs_m_f_pi(squared = True)
+    # plot_a_0_vs_m_f_pi(squared = True)
 
     #######################################################
 
